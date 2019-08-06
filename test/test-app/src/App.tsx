@@ -10,7 +10,7 @@ const App: React.FC = () => {
 
       <VStack style={{ background: "green" }}>
         <Spacer />
-        <VStack style={{ background: "red" }}>
+        <VStack style={{ background: "red", padding: "16px" }}>
           <Text>Hello World</Text>
           <Spacer />
           <Text>Hello World</Text>
