@@ -27,7 +27,7 @@ export default ({ children, style, alignment = HorizontalAlignment.center, }: { 
 
 	const getOutsideElementsLength = (element: HTMLElement): number => {
 		const parent = (element.parentElement as HTMLElement)
-		const elements = Array.from(parent.children).filter(item => (!item.isEqualNode(element))/* && (item.className !== "spacer")*/)
+		const elements = Array.from(parent.children).filter(item => (!item.isEqualNode(element)) && (item.className !== "spacer"))
 		const elementsLength = elements.map((element) => (element as HTMLElement).getBoundingClientRect().width).reduce((prev, current) => prev + current, 0)
 		return elementsLength
 	}

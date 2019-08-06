@@ -8,17 +8,17 @@ const App: React.FC = () => {
     <HostView style={{ margin: 0, padding: 0, height: "100%", width: "100%", position: "absolute" }}>
 
 
-      {/* <VStack style={{ background: "green" }}>
+      <VStack style={{ background: "green" }}>
         <Spacer />
-        <VStack>
+        <VStack style={{ background: "red" }}>
           <Text>Hello World</Text>
           <Spacer />
           <Text>Hello World</Text>
         </VStack>
         <Spacer />
-      </VStack> */}
+      </VStack>
 
-      <HStack style={{ background: "green" }}>
+      {/* <HStack style={{ background: "green" }}>
         <Spacer />
         <HStack style={{ background: "red" }}>
           <p>Hello World</p>
@@ -26,7 +26,7 @@ const App: React.FC = () => {
           <p>Hello World</p>
         </HStack>
         <Spacer />
-      </HStack>
+      </HStack> */}
 
       {/* <VStack style={{ background: "green" }}>
         <HStack style={{ background: "blue" }}>
