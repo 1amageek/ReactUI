@@ -1,0 +1,91 @@
+
+/* HostView */
+
+.host-view {
+	display: inline-flex;
+	justify-content: center;
+	align-content: center;
+	box-sizing: border-box;
+}
+
+/* Spacer */
+
+.host-view .spacer {
+	display: block;
+}
+
+/* Text */
+
+.host-view .text {
+	margin: 0;
+	padding: 0;
+	display: block;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	text-align: center;
+}
+
+/* HStack */
+
+
+.host-view .h-stack {
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+	align-self: center;
+}
+
+.v-stack > .h-stack {
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+}
+
+.host-view > .h-stack > .spacer {
+	flex-grow: 1;
+}
+
+.host-view > .h-stack.leading {
+	justify-content: flex-start;
+}
+
+.host-view > .h-stack.center {
+	justify-content: center;
+}
+
+.host-view > .h-stack.trailing {
+	justify-content: flex-end;
+}
+
+/* VStack */
+
+.host-view .v-stack {
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+}
+
+.v-stack > .v-stack {
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	align-self: center;
+}
+
+.host-view > .v-stack .spacer {
+	flex-grow: 1;
+}
+
+.host-view > .v-stack.leading {
+	justify-content: flex-start;
+}
+
+.host-view > .v-stack.center {
+	justify-content: center;
+}
+
+.host-view > .v-stack.trailing {
+	justify-content: flex-end;
+}
