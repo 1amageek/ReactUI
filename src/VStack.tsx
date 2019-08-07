@@ -17,7 +17,7 @@ export default ({ children, style, alignment = VerticalAlignment.center, }: { ch
 		const outsideDeterminedElement = getOutsideDeterminedElement(element)
 		const height = outsideDeterminedElement.style.height
 		if (height) {
-			if (height.indexOf("%")) {
+			if (height.includes("%")) {
 				return outsideDeterminedElement.getBoundingClientRect().height
 			}
 			return parseInt(height)
@@ -38,7 +38,7 @@ export default ({ children, style, alignment = VerticalAlignment.center, }: { ch
 			const element = (item as HTMLElement)
 			const height = element.style.height
 			if (height) {
-				if (height.indexOf("%")) {
+				if (height.includes("%")) {
 					return element.getBoundingClientRect().height
 				}
 				return parseInt(height)
@@ -48,24 +48,41 @@ export default ({ children, style, alignment = VerticalAlignment.center, }: { ch
 			}
 			return getInsideElementsLength(element)
 		})
-		.reduce((prev, current) => prev + current, 0)
+			.reduce((prev, current) => prev + current, 0)
 		return elementsLength
 	}
 
 	const ref = (self: HTMLDivElement) => {
-		const spacers = getOutsideDeterminedElement(self).querySelectorAll("div.spacer")
+		const spacers = Array.from(getOutsideDeterminedElement(self).querySelectorAll("div.spacer")).filter((item) => (item.parentElement as HTMLElement).className.includes("v-stack"))
+		console.log(spacers)
 		if (spacers.length > 0) {
 			const maxLength = getOutsideDeterminedLength(self)
 			const outsideElementsLength = getOutsideElementsLength(self)
 			const inseideElementsLength = getInsideElementsLength(self)
 			const growthableLength = maxLength - outsideElementsLength - inseideElementsLength
 			const spacerLength = growthableLength / spacers.length
+			console.log("------")
+			console.log(self)
+			console.log(maxLength)
+			console.log(outsideElementsLength)
+			console.log(inseideElementsLength)
+			console.log(growthableLength)
+			console.log(spacerLength)
+
 			spacers.forEach(element => {
 				const spacer = (element as HTMLElement)
-				if (!spacer.style.height) {
-					spacer.setAttribute("style", `height: ${spacerLength}px`)
+				console.log(spacer)
+				if (!spacer.style.height && !spacer.style.width) {
+					spacer.style.height = `${spacerLength}px`
 				}
 			})
+		}
+		if (!self.style.height) {
+			const rect = self.getBoundingClientRect()
+			const width = rect.width
+			const height = rect.height
+			self.style.width = `${width}px`
+			self.style.height = `${height}px`
 		}
 	}
 

@@ -17,7 +17,7 @@ export default ({ children, style, alignment = HorizontalAlignment.center, }: { 
 		const outsideDeterminedElement = getOutsideDeterminedElement(element)
 		const width = outsideDeterminedElement.style.width
 		if (width) {
-			if (width.indexOf("%")) {
+			if (width.includes("%")) {
 				return outsideDeterminedElement.getBoundingClientRect().width
 			}
 			return parseInt(width)
@@ -38,7 +38,7 @@ export default ({ children, style, alignment = HorizontalAlignment.center, }: { 
 			const element = (item as HTMLElement)
 			const width = element.style.width
 			if (width) {
-				if (width.indexOf("%")) {
+				if (width.includes("%")) {
 					return element.getBoundingClientRect().width
 				}
 				return parseInt(width)
@@ -53,7 +53,7 @@ export default ({ children, style, alignment = HorizontalAlignment.center, }: { 
 	}
 
 	const ref = (self: HTMLDivElement) => {
-		const spacers = getOutsideDeterminedElement(self).querySelectorAll("div.spacer")
+		const spacers = Array.from(getOutsideDeterminedElement(self).querySelectorAll("div.spacer")).filter((item) => (item.parentElement as HTMLElement).className.includes("h-stack"))
 		if (spacers.length > 0) {
 			const maxLength = getOutsideDeterminedLength(self)
 			const outsideElementsLength = getOutsideElementsLength(self)
@@ -62,10 +62,17 @@ export default ({ children, style, alignment = HorizontalAlignment.center, }: { 
 			const spacerLength = growthableLength / spacers.length
 			spacers.forEach(element => {
 				const spacer = (element as HTMLElement)
-				if (!spacer.style.width) {
-					spacer.setAttribute("style", `width: ${spacerLength}px`)
+				if (!spacer.style.height && !spacer.style.width) {
+					spacer.style.width = `${spacerLength}px`
 				}
 			})
+		}
+		if (!self.style.width) {
+			const rect = self.getBoundingClientRect()
+			const width = rect.width
+			const height = rect.height
+			self.style.width = `${width}px`
+			self.style.height = `${height}px`
 		}
 	}
 

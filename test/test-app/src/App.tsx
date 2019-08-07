@@ -10,12 +10,11 @@ const App: React.FC = () => {
 
       <VStack style={{ background: "green" }}>
         <Spacer />
-        <VStack style={{ background: "red", padding: "16px" }}>
+        <HStack style={{ background: "red"}}>
           <Text>Hello World</Text>
           <Spacer />
           <Text>Hello World</Text>
-        </VStack>
-        <Spacer />
+        </HStack>
       </VStack>
 
       {/* <HStack style={{ background: "green" }}>
