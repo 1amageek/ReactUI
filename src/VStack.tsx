@@ -1,5 +1,5 @@
 import React, { CSSProperties } from "react"
-import ReactDOM from "react-dom"
+import { LayoutEngine, Axis } from "./LayoutEngine"
 import { VerticalAlignment } from "."
 import { number } from "prop-types";
 
@@ -27,13 +27,16 @@ export default ({ children, style, alignment = VerticalAlignment.center, }: { ch
 
 	const getOutsideElementsLength = (element: HTMLElement): number => {
 		const parent = (element.parentElement as HTMLElement)
-		const elements = Array.from(parent.children).filter(item => (!item.isEqualNode(element)) && (item.className !== "spacer"))
+		if (parent.className.includes("h-stack")) {
+			return 0
+		}
+		const elements = Array.from(parent.children).filter(item => (!item.isEqualNode(element)) && (!item.className.includes("expandable")))
 		const elementsLength = elements.map((element) => (element as HTMLElement).getBoundingClientRect().height).reduce((prev, current) => prev + current, 0)
 		return elementsLength
 	}
 
 	const getInsideElementsLength = (element: HTMLElement): number => {
-		const elements = Array.from(element.children)//.filter(item => item.className !== "spacer")
+		const elements = Array.from(element.children)
 		const elementsLength = elements.map((item) => {
 			const element = (item as HTMLElement)
 			const height = element.style.height
@@ -53,30 +56,39 @@ export default ({ children, style, alignment = VerticalAlignment.center, }: { ch
 	}
 
 	const ref = (self: HTMLDivElement) => {
-		const spacers = Array.from(getOutsideDeterminedElement(self).querySelectorAll("div.spacer")).filter((item) => (item.parentElement as HTMLElement).className.includes("v-stack"))
-		console.log(spacers)
-		if (spacers.length > 0) {
-			const maxLength = getOutsideDeterminedLength(self)
-			const outsideElementsLength = getOutsideElementsLength(self)
-			const inseideElementsLength = getInsideElementsLength(self)
-			const growthableLength = maxLength - outsideElementsLength - inseideElementsLength
-			const spacerLength = growthableLength / spacers.length
-			console.log("------")
-			console.log(self)
-			console.log(maxLength)
-			console.log(outsideElementsLength)
-			console.log(inseideElementsLength)
-			console.log(growthableLength)
-			console.log(spacerLength)
-
-			spacers.forEach(element => {
-				const spacer = (element as HTMLElement)
-				console.log(spacer)
-				if (!spacer.style.height && !spacer.style.width) {
-					spacer.style.height = `${spacerLength}px`
-				}
-			})
-		}
+		const horizontalExpandables = LayoutEngine.getWidthExpandableElements(self, Axis.horizontal)
+		const width = LayoutEngine.getOptimizedExpandableWidth(self, Axis.horizontal)
+		horizontalExpandables.forEach(element => {
+			const expandable = (element as HTMLElement)
+			if (!expandable.style.width) {
+				expandable.style.width = `${width}px`
+			}
+		})
+		const verticalExpandables = LayoutEngine.getHeightExpandableElements(self, Axis.horizontal)
+		const height = LayoutEngine.getOptimizedExpandableHeight(self, Axis.horizontal)
+		console.log("!!", height)
+		verticalExpandables.forEach(element => {
+			const expandable = (element as HTMLElement)
+			if (!expandable.style.height) {
+				expandable.style.height = `${height}px`
+			}
+		})
+		console.log(horizontalExpandables)
+		console.log(verticalExpandables)
+		// const expandables = Array.from(getOutsideDeterminedElement(self).querySelectorAll(".expandable")).filter((item) => (item.parentElement as HTMLElement).className.includes("v-stack"))
+		// if (expandables.length > 0) {
+		// 	const maxLength = getOutsideDeterminedLength(self)
+		// 	const outsideElementsLength = getOutsideElementsLength(self)
+		// 	const inseideElementsLength = getInsideElementsLength(self)
+		// 	const growthableLength = maxLength - outsideElementsLength - inseideElementsLength
+		// 	const length = LayoutEngine.getOptimizedExpandableHeight(self, Axis.vertical)//growthableLength / expandables.length
+		// 	expandables.forEach(element => {
+		// 		const expandable = (element as HTMLElement)
+		// 		if (!expandable.style.height) {
+		// 			expandable.style.height = `${length}px`
+		// 		}
+		// 	})
+		// }
 		if (!self.style.height) {
 			const rect = self.getBoundingClientRect()
 			const width = rect.width

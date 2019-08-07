@@ -1,23 +1,23 @@
 import React from 'react';
 import './App.css';
 
-import { HostView, Spacer, Text, HStack, VStack } from 'web-ui'
+import { HostView, Spacer, Text, HStack, VStack, NavigationView, List } from 'web-ui'
 
 const App: React.FC = () => {
   return (
     <HostView style={{ margin: 0, padding: 0, height: "100%", width: "100%", position: "absolute" }}>
 
-
-      <VStack style={{ background: "green" }}>
-        <Spacer />
-        <HStack style={{ background: "red"}}>
-          <Text>Hello World</Text>
-          <Spacer />
-          <Text>Hello World</Text>
-        </HStack>
+      <VStack>
+        <List>
+          <Text>aaaa</Text>
+          <Text>aaaa</Text>
+          <Text>aaaa</Text>
+        </List>
       </VStack>
 
-      {/* <HStack style={{ background: "green" }}>
+
+
+      {/* <VStack style={{ background: "green" }}>
         <Spacer />
         <HStack style={{ background: "red" }}>
           <p>Hello World</p>
@@ -25,7 +25,7 @@ const App: React.FC = () => {
           <p>Hello World</p>
         </HStack>
         <Spacer />
-      </HStack> */}
+      </VStack> */}
 
       {/* <VStack style={{ background: "green" }}>
         <HStack style={{ background: "blue" }}>
@@ -44,6 +44,11 @@ const App: React.FC = () => {
         <Text>Hello World</Text>
         <Spacer />
         <Text>Hello World</Text>
+        <VStack style={{ background: "green" }}>
+          <Text>Hello World</Text>
+          <Spacer />
+          <Text>Hello World</Text>
+        </VStack>
       </VStack> */}
 
       {/* <HStack>

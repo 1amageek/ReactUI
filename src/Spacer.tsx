@@ -4,7 +4,7 @@ import { setFlagsFromString } from "v8";
 
 export default ({ style }: { style?: CSSProperties, minLength?: string }) => {
 	return (
-		<div className="spacer" style={style}>
+		<div className="spacer expandable" style={style}>
 		</div>
 	)
 }

@@ -77,3 +77,14 @@
 .host-view .v-stack.trailing {
 	justify-content: flex-end;
 }
+
+/* List */
+
+.host-view .list {
+	box-sizing: border-box;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+}
