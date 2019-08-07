@@ -56,10 +56,6 @@ export default ({ children, style, alignment = HorizontalAlignment.center, }: { 
 	}
 
 	const ref = (self: HTMLDivElement) => {
-		// const expandables = Array.from(getOutsideDeterminedElement(self)
-		// 	.querySelectorAll(".expandable"))
-		// 	.filter((item) => (item.parentElement as HTMLElement).className.includes("h-stack"))
-
 		const horizontalExpandables = LayoutEngine.getWidthExpandableElements(self, Axis.horizontal)
 		const width = LayoutEngine.getOptimizedExpandableWidth(self, Axis.horizontal)
 		horizontalExpandables.forEach(element => {
@@ -70,53 +66,18 @@ export default ({ children, style, alignment = HorizontalAlignment.center, }: { 
 		})
 		const verticalExpandables = LayoutEngine.getHeightExpandableElements(self, Axis.horizontal)
 		const height = LayoutEngine.getOptimizedExpandableHeight(self, Axis.horizontal)
-		console.log("!!", height)
 		verticalExpandables.forEach(element => {
 			const expandable = (element as HTMLElement)
 			if (!expandable.style.height) {
 				expandable.style.height = `${height}px`
 			}
 		})
-		console.log(horizontalExpandables)
-		console.log(verticalExpandables)
-		// if (horizontalExpandables.length > 0) {
-		// 	const maxLength = getOutsideDeterminedLength(self)
-		// 	const outsideElementsLength = getOutsideElementsLength(self)
-		// 	const inseideElementsLength = getInsideElementsLength(self)
-		// 	const growthableLength = maxLength - outsideElementsLength - inseideElementsLength
-		// 	const width = LayoutEngine.getOptimizedExpandableWidth(self, Axis.vertical)
-
-		// 	console.log("------")
-		// 	console.log(self)
-		// 	console.log(maxLength)
-		// 	console.log(outsideElementsLength)
-		// 	console.log(inseideElementsLength)
-		// 	console.log(growthableLength)
-		// 	console.log(width)
-
-
-		// 	horizontalExpandables.forEach(element => {
-		// 		const expandable = (element as HTMLElement)
-		// 		if (!expandable.style.width) {
-		// 			expandable.style.width = `${width}px`
-		// 		}
-		// 	})
-		// 	// const height = LayoutEngine.getOptimizedExpandableHeight(self, Axis.vertical)
-		// 	// verticalExpandables.forEach(element => {
-		// 	// 	const expandable = (element as HTMLElement)
-		// 	// 	if (!expandable.style.height) {
-		// 	// 		expandable.style.height = `${height}px`
-		// 	// 	}
-		// 	// })
-
-		// }
 		if (!self.style.width) {
 			const rect = self.getBoundingClientRect()
 			const width = rect.width
 			const height = rect.height
 			self.style.width = `${width}px`
 			self.style.height = `${height}px`
-			console.log(self.style.width)
 		}
 	}
 

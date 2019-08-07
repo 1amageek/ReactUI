@@ -11,7 +11,9 @@ export default ({ children, style }: { children: any, style?: CSSProperties }) =
 		<ul className="list expandable" style={style} ref={ref}>
 			{React.Children.map(children, (child, index) => {
 				return (
-					<li className="list-cell">{child}</li>
+					<li className="list-cell">
+						<div className="list-cell-content-view">{child}</div>
+					</li>
 				)
 			})}
 		</ul>

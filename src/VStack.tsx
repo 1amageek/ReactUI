@@ -66,29 +66,12 @@ export default ({ children, style, alignment = VerticalAlignment.center, }: { ch
 		})
 		const verticalExpandables = LayoutEngine.getHeightExpandableElements(self, Axis.horizontal)
 		const height = LayoutEngine.getOptimizedExpandableHeight(self, Axis.horizontal)
-		console.log("!!", height)
 		verticalExpandables.forEach(element => {
 			const expandable = (element as HTMLElement)
 			if (!expandable.style.height) {
 				expandable.style.height = `${height}px`
 			}
 		})
-		console.log(horizontalExpandables)
-		console.log(verticalExpandables)
-		// const expandables = Array.from(getOutsideDeterminedElement(self).querySelectorAll(".expandable")).filter((item) => (item.parentElement as HTMLElement).className.includes("v-stack"))
-		// if (expandables.length > 0) {
-		// 	const maxLength = getOutsideDeterminedLength(self)
-		// 	const outsideElementsLength = getOutsideElementsLength(self)
-		// 	const inseideElementsLength = getInsideElementsLength(self)
-		// 	const growthableLength = maxLength - outsideElementsLength - inseideElementsLength
-		// 	const length = LayoutEngine.getOptimizedExpandableHeight(self, Axis.vertical)//growthableLength / expandables.length
-		// 	expandables.forEach(element => {
-		// 		const expandable = (element as HTMLElement)
-		// 		if (!expandable.style.height) {
-		// 			expandable.style.height = `${length}px`
-		// 		}
-		// 	})
-		// }
 		if (!self.style.height) {
 			const rect = self.getBoundingClientRect()
 			const width = rect.width

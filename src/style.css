@@ -87,4 +87,25 @@
 	margin: 0;
 	width: 100%;
 	height: 100%;
+	box-sizing: border-box;
+}
+
+.host-view .list .list-cell {
+	min-height: 44px;
+	padding: 0;
+	margin: 0;
+	position: relative;
+	box-sizing: border-box;
+	border-bottom: 0.5px solid rgba(145, 145, 160, 0.6)
+}
+
+.host-view .list .list-cell .list-cell-content-view {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	padding: 4px 16px;
+	position: absolute;
+	align-content: center;
+	align-items: center;
+	box-sizing: border-box;
 }

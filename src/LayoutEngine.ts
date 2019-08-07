@@ -68,7 +68,9 @@ export class LayoutEngine {
 
 	private static getInsideElementsHeight(element: HTMLElement): number {
 		const elements = Array.from(element.children)
-		const elementsLength = elements.map((item) => {
+		const elementsLength = elements
+		.filter(item => !item.className.includes("expandable"))
+		.map((item) => {
 			const element = (item as HTMLElement)
 			const height = element.style.height
 			if (height) {
@@ -88,7 +90,9 @@ export class LayoutEngine {
 
 	private static getInsideElementsWidth(element: HTMLElement): number {
 		const elements = Array.from(element.children)
-		const elementsLength = elements.map((item) => {
+		const elementsLength = elements
+		.filter(item => !item.className.includes("expandable"))
+		.map((item) => {
 			const element = (item as HTMLElement)
 			const width = element.style.width
 			if (width) {
