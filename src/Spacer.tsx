@@ -1,10 +1,18 @@
 import React, { CSSProperties, createRef, useEffect } from "react"
-import ReactDOM from "react-dom"
-import { setFlagsFromString } from "v8";
 
 export default ({ style }: { style?: CSSProperties, minLength?: string }) => {
+
+	const ref = (self: HTMLDivElement) => {
+		if ((self.parentElement as HTMLElement).className.includes("h-stack") && !self.className.includes("horizontal")) {
+			self.className += " horizontal"
+		}
+		if ((self.parentElement as HTMLElement).className.includes("v-stack") && !self.className.includes("vertical")) {
+			self.className += " vertical"
+		}
+	}
+
 	return (
-		<div className="spacer expandable" style={style}>
+		<div className="spacer expandable" style={style} ref={ref}>
 		</div>
 	)
 }

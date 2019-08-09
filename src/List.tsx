@@ -1,21 +1,29 @@
 import React, { CSSProperties } from "react"
-import ReactDOM from "react-dom"
+import ScrollView from "./ScrollView"
+import * as LayoutEngine from "./LayoutEngine"
 
 export default ({ children, style }: { children: any, style?: CSSProperties }) => {
 
 	const ref = (self: HTMLUListElement) => {
-		const chidren = Array.from(self.children)
+		const width = LayoutEngine.getOutsideDeterminedWidth(self)
+		const height = LayoutEngine.getOutsideDeterminedHeight(self)
+		if (!self.style.height || self.style.width) {
+			self.style.width = `${width}px`
+			self.style.height = `${height}px`
+		}
 	}
 
 	return (
-		<ul className="list expandable" style={style} ref={ref}>
-			{React.Children.map(children, (child, index) => {
-				return (
-					<li className="list-cell">
-						<div className="list-cell-content-view">{child}</div>
-					</li>
-				)
-			})}
-		</ul>
+		<ScrollView>
+			<ul className="list" style={style} ref={ref}>
+				{React.Children.map(children, (child, index) => {
+					return (
+						<li className="list-cell" key={index}>
+							<div className="list-cell-content-view" style={{paddingLeft: "16px", paddingRight: "16px", paddingTop: "4px", paddingBottom: "4px"}}>{child}</div>
+						</li>
+					)
+				})}
+			</ul>
+		</ScrollView>
 	)
 }

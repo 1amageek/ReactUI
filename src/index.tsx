@@ -2,6 +2,7 @@ import "./style.css"
 
 import HostView from "./HostView"
 import NavigationView from "./NavigationView"
+import ScrollView from "./ScrollView"
 import Spacer from "./Spacer"
 import Text from "./Text"
 import HStack from "./HStack"
@@ -10,6 +11,7 @@ import List from "./List"
 
 export { HostView }
 export { NavigationView }
+export { ScrollView }
 export { Spacer }
 export { Text }
 export { HStack }
@@ -26,4 +28,9 @@ export enum HorizontalAlignment {
 	leading = "leading",
 	center = "center",
 	trailing = "trailing"
+}
+
+export enum Axis {
+	horizontal = "horizontal",
+	vertical = "vertical"
 }
