@@ -2,7 +2,7 @@ import React, { CSSProperties } from "react"
 import { Axis } from "."
 import * as LayoutEngine from "./LayoutEngine"
 
-const ContentView = ({ children, style }: { children: any, style?: CSSProperties }) => {
+const ContentView = ({ children, style, axes }: { children: any, style?: CSSProperties, axes?: Axis[] }) => {
 	const ref = (self: HTMLDivElement) => {
 		if (!self.style.height || self.style.width) {
 			const rect = self.getBoundingClientRect()
@@ -14,6 +14,29 @@ const ContentView = ({ children, style }: { children: any, style?: CSSProperties
 	}
 	return (
 		<div className={"scroll-view-content-view"} style={style} ref={ref}>
+			{children}
+		</div>
+	)
+}
+
+const InnerView = ({ children, style, axes }: { children: any, style?: CSSProperties, axes: Axis[] }) => {
+
+	const ref = (self: HTMLDivElement) => {
+		if (!self.style.height || self.style.width) {
+			const rect = self.getBoundingClientRect()
+			if (!axes.includes(Axis.horizontal)) {
+				self.style.width = `${LayoutEngine.getOutsideDeterminedWidth(self)}px`
+				self.style.overflowX = "hidden"
+			}
+			if (!axes.includes(Axis.vertical)) {
+				self.style.height = `${LayoutEngine.getOutsideDeterminedHeight(self)}px`
+				self.style.overflowY = "hidden"
+			}
+		}
+	}
+	
+	return (
+		<div className={"inner-view expandable " + axes.join(" ")} style={style} ref={ref}>
 			{children}
 		</div>
 	)
@@ -41,25 +64,15 @@ export default ({ children, style, axes = [Axis.vertical] }: { children: any, st
 				expandable.style.height = `${height}px`
 			}
 		})
-
-		// if (!self.style.width && !self.style.height) {
-		// 	const rect = self.getBoundingClientRect()
-		// 	const width = LayoutEngine.get
-		// 	const height = rect.height
-		// 	self.style.width = `${width}px`
-		// 	self.style.height = `${height}px`
-		// }
 	}
-
-	const axesString: string = axes.join(" ")
 
 	return (
 		<div className={"scroll-view"} style={style} ref={ref}>
-			<div className={"expandable " + axesString}>
+			<InnerView axes={axes}>
 				<ContentView>
 					{children}
 				</ContentView>
-			</div>
+			</InnerView>
 		</div >
 	)
 }

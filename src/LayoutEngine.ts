@@ -257,14 +257,14 @@ export const getOptimizedExpandableHeight = (element: HTMLElement): number => {
 	const inseideElementsLength = getInsideElementsHeight(element)
 	const growthableLength = maxLength - outsideElementsLength - inseideElementsLength - paddingLength
 	const length = growthableLength / expandables.length
-	console.log("-------")
-	console.log(element)
-	console.log(maxLength)
-	console.log("outsideElementsLength", outsideElementsLength)
-	console.log("paddingLength", paddingLength)
-	console.log("inseideElementsLength", inseideElementsLength)
-	console.log(growthableLength)
-	console.log(expandables)
+	// console.log("-------")
+	// console.log(element)
+	// console.log(maxLength)
+	// console.log("outsideElementsLength", outsideElementsLength)
+	// console.log("paddingLength", paddingLength)
+	// console.log("inseideElementsLength", inseideElementsLength)
+	// console.log(growthableLength)
+	// console.log(expandables)
 	return length
 }
 
