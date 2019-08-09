@@ -3,15 +3,7 @@ import { Axis } from "."
 import * as LayoutEngine from "./LayoutEngine"
 
 const ContentView = ({ children, style, axes }: { children: any, style?: CSSProperties, axes?: Axis[] }) => {
-	const ref = (self: HTMLDivElement) => {
-		if (!self.style.height || self.style.width) {
-			const rect = self.getBoundingClientRect()
-			const width = rect.width
-			const height = rect.height
-			self.style.width = `${width}px`
-			self.style.height = `${height}px`
-		}
-	}
+	const ref = (self: HTMLDivElement) => { }
 	return (
 		<div className={"scroll-view-content-view"} style={style} ref={ref}>
 			{children}
@@ -20,21 +12,7 @@ const ContentView = ({ children, style, axes }: { children: any, style?: CSSProp
 }
 
 const InnerView = ({ children, style, axes }: { children: any, style?: CSSProperties, axes: Axis[] }) => {
-
-	const ref = (self: HTMLDivElement) => {
-		if (!self.style.height || self.style.width) {
-			const rect = self.getBoundingClientRect()
-			if (!axes.includes(Axis.horizontal)) {
-				self.style.width = `${LayoutEngine.getOutsideDeterminedWidth(self)}px`
-				self.style.overflowX = "hidden"
-			}
-			if (!axes.includes(Axis.vertical)) {
-				self.style.height = `${LayoutEngine.getOutsideDeterminedHeight(self)}px`
-				self.style.overflowY = "hidden"
-			}
-		}
-	}
-	
+	const ref = (self: HTMLDivElement) => {}
 	return (
 		<div className={"inner-view expandable " + axes.join(" ")} style={style} ref={ref}>
 			{children}
@@ -67,7 +45,7 @@ export default ({ children, style, axes = [Axis.vertical] }: { children: any, st
 	}
 
 	return (
-		<div className={"scroll-view"} style={style} ref={ref}>
+		<div className={"scroll-view " + axes.join(" ")} style={style} ref={ref}>
 			<InnerView axes={axes}>
 				<ContentView>
 					{children}

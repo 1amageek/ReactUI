@@ -8,6 +8,10 @@ const isVerticalExpandable = (element: HTMLElement): boolean => {
 	return element.className.includes("vertical") && element.className.includes("expandable")
 }
 
+const isScrollView = (element: HTMLElement): boolean => {
+	return element.className.includes("scroll-view")
+}
+
 const getPaddingTop = (element: HTMLElement): number => {
 	const paddingTop = element.style.paddingTop
 	if (paddingTop) {
@@ -127,7 +131,11 @@ const getOutsideElementsHeight = (element: HTMLElement): number => {
 	if (parent.className.includes("h-stack")) {
 		return 0
 	}
-	const elements = Array.from(parent.children).filter(item => (!item.isEqualNode(element)) && !isHorizontalExpandable(item as HTMLElement))
+	const elements = Array.from(parent.children).filter(item => {
+		return (!item.isEqualNode(element)) &&
+			!isHorizontalExpandable(item as HTMLElement) &&
+			!(item as HTMLElement).className.includes("vertical")
+	})
 	const elementsLength = elements.map((element) => (element as HTMLElement).getBoundingClientRect().height || 0).reduce((prev, current) => prev + current, 0)
 	return elementsLength
 }
@@ -137,15 +145,16 @@ const getOutsideElementsWidth = (element: HTMLElement): number => {
 	if (parent.className.includes("v-stack")) {
 		return 0
 	}
-	const elements = Array.from(parent.children).filter(item => (!item.isEqualNode(element)) && !isVerticalExpandable(item as HTMLElement))
+	const elements = Array.from(parent.children).filter(item => {
+		return (!item.isEqualNode(element)) &&
+			!isVerticalExpandable(item as HTMLElement) &&
+			!(item as HTMLElement).className.includes("horizontal")
+	})
 	const elementsLength = elements.map((element) => (element as HTMLElement).getBoundingClientRect().width || 0).reduce((prev, current) => prev + current, 0)
 	return elementsLength
 }
 
 const getInsideElementsHeight = (element: HTMLElement): number => {
-	if (element.className.includes("scroll-view")) {
-		return 0
-	}
 	if (element.className.includes("h-stack")) {
 		const height = element.style.height
 		if (height) {
@@ -178,9 +187,6 @@ const getInsideElementsHeight = (element: HTMLElement): number => {
 }
 
 const getInsideElementsWidth = (element: HTMLElement): number => {
-	if (element.className.includes("scroll-view")) {
-		return 0
-	}
 	if (element.className.includes("v-stack")) {
 		const width = element.style.width
 		if (width) {
@@ -213,11 +219,13 @@ const getInsideElementsWidth = (element: HTMLElement): number => {
 }
 
 export const getVerticalExpandableElements = (element: HTMLElement) => {
-	return Array.from(getOutsideHeightDeterminedElement(element).querySelectorAll(".expandable.vertical"))
+	return Array.from(getOutsideHeightDeterminedElement(element)
+		.querySelectorAll(".expandable.vertical"))
 }
 
 export const getHorizontalExpandableElements = (element: HTMLElement) => {
-	return Array.from(getOutsideWidthDeterminedElement(element).querySelectorAll(".expandable.horizontal"))
+	return Array.from(getOutsideWidthDeterminedElement(element)
+		.querySelectorAll(".expandable.horizontal"))
 }
 
 export const getVerticalExpandableChildren = (element: HTMLElement) => {
@@ -251,20 +259,24 @@ export const getOptimizedExpandableHeight = (element: HTMLElement): number => {
 	if (expandables.length === 0) {
 		return 0
 	}
+	let elemntCount = expandables.length
+	if ((element.parentElement as HTMLElement).className.includes("h-stack")) {
+		elemntCount = 1
+	}
 	const maxLength = getOutsideDeterminedHeight(element)
 	const paddingLength = getOutsideDeterminedPaddingVertical(element, 0)
 	const outsideElementsLength = getOutsideElementsHeight(element)
 	const inseideElementsLength = getInsideElementsHeight(element)
 	const growthableLength = maxLength - outsideElementsLength - inseideElementsLength - paddingLength
-	const length = growthableLength / expandables.length
-	// console.log("-------")
-	// console.log(element)
-	// console.log(maxLength)
-	// console.log("outsideElementsLength", outsideElementsLength)
-	// console.log("paddingLength", paddingLength)
-	// console.log("inseideElementsLength", inseideElementsLength)
-	// console.log(growthableLength)
-	// console.log(expandables)
+	const length = growthableLength / elemntCount
+	console.log("-------")
+	console.log(element)
+	console.log(maxLength)
+	console.log("outsideElementsLength", outsideElementsLength)
+	console.log("paddingLength", paddingLength)
+	console.log("inseideElementsLength", inseideElementsLength)
+	console.log("growthableLength", growthableLength)
+	console.log(expandables)
 	return length
 }
 
@@ -273,18 +285,22 @@ export const getOptimizedExpandableWidth = (element: HTMLElement): number => {
 	if (expandables.length === 0) {
 		return 0
 	}
+	let elemntCount = expandables.length
+	if ((element.parentElement as HTMLElement).className.includes("v-stack")) {
+		elemntCount = 1
+	}
 	const maxLength = getOutsideDeterminedWidth(element)
 	const paddingLength = getOutsideDeterminedPaddingHorizontal(element, 0)
 	const outsideElementsLength = getOutsideElementsWidth(element)
 	const inseideElementsLength = getInsideElementsWidth(element)
 	const growthableLength = maxLength - outsideElementsLength - inseideElementsLength - paddingLength
-	const length = growthableLength / expandables.length
+	const length = growthableLength / elemntCount
 	// console.log("-------")
-	// console.log(element)
-	// console.log(maxLength)
-	// console.log(outsideElementsLength)
-	// console.log("p", paddingLength)
-	// console.log(inseideElementsLength)
+	// console.log("element", element)
+	// console.log("maxLength", maxLength)
+	// console.log("outsideElementsLength", outsideElementsLength)
+	// console.log("paddingLength", paddingLength)
+	// console.log("inseideElementsLength", inseideElementsLength)
 	// console.log(growthableLength)
 	// console.log(expandables)
 	return length
