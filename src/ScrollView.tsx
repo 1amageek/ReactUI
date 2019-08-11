@@ -45,7 +45,7 @@ export default ({ children, style, axes = [Axis.vertical] }: { children: any, st
 	}
 
 	return (
-		<div className={"scroll-view " + axes.join(" ")} style={style} ref={ref}>
+		<div className={"scroll-view expandable " + axes.join(" ")} style={style} ref={ref}>
 			<InnerView axes={axes}>
 				<ContentView>
 					{children}

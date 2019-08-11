@@ -177,6 +177,9 @@ export default ({ children, style }: { children: any, style?: CSSProperties }) =
 			}
 			return parseInt(width)
 		}
+		if (Array.from(element.children).length === 0) {
+			return element.getBoundingClientRect().width
+		}
 		const elements = Array.from(element.children)
 			.map((item) => {
 				const element = (item as HTMLElement)
@@ -186,9 +189,6 @@ export default ({ children, style }: { children: any, style?: CSSProperties }) =
 						return element.getBoundingClientRect().width
 					}
 					return parseInt(width)
-				}
-				if (Array.from(element.children).length === 0) {
-					return element.getBoundingClientRect().width
 				}
 				return getInstrinsicWidth(element)
 			})
@@ -206,6 +206,9 @@ export default ({ children, style }: { children: any, style?: CSSProperties }) =
 			}
 			return parseInt(height)
 		}
+		if (Array.from(element.children).length === 0) {
+			return element.getBoundingClientRect().height
+		}
 		const elements = Array.from(element.children)
 			.map((item) => {
 				const element = (item as HTMLElement)
@@ -215,9 +218,6 @@ export default ({ children, style }: { children: any, style?: CSSProperties }) =
 						return element.getBoundingClientRect().height
 					}
 					return parseInt(height)
-				}
-				if (Array.from(element.children).length === 0) {
-					return element.getBoundingClientRect().height
 				}
 				return getInstrinsicHeight(element)
 			})
