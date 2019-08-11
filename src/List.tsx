@@ -9,7 +9,7 @@ export default ({ children, style }: { children: any, style?: CSSProperties }) =
 
 	return (
 		<ScrollView axes={[Axis.horizontal, Axis.vertical]}>
-			<ul className="list" style={style} ref={ref}>
+			<ul className="list column" style={style} ref={ref}>
 				{React.Children.map(children, (child, index) => {
 					return (
 						<li className="list-cell" key={index}>

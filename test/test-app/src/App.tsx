@@ -7,14 +7,23 @@ const App: React.FC = () => {
   return (
     <HostView style={{ margin: 0, padding: 0, height: "100%", width: "100%", position: "absolute" }}>
 
-      <List>
-        <HStack>
-          <Text>hoge</Text>
-          <Spacer/>
-          <Text>hoge</Text>
+      <VStack>
+        <HStack style={{background: "red"}}>
+          <Text>aaa</Text>
+          <Spacer />
+          <Text>bbb</Text>
         </HStack>
-      </List>
-
+        <VStack style={{background: "green"}}>
+          <Text>aaa</Text>
+          <Spacer />
+          <Text>bbb</Text>
+        </VStack>
+        <HStack style={{background: "red"}}>
+          <Text>aaa</Text>
+          <Spacer />
+          <Text>bbb</Text>
+        </HStack>
+      </VStack>
     </HostView>
   );
 }
