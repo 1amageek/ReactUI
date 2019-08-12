@@ -19,14 +19,40 @@
 .host-view .text {
 	margin: 0;
 	padding: 0;
-	display: block;
+	display: inline-block;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	text-align: center;
 }
 
-/* HStack */
+/* NavigationView */
 
+.host-view .navigation-view {
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+	align-items: center;
+	align-self: center;
+}
+
+.host-view .navigation-view .navigation-bar {
+	position: absolute;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 8px 16px;
+}
+
+.host-view .navigation-view .navigation-bar .text {
+	justify-self: flex-start;
+	align-self: flex-end;
+	font-size: 32px;
+	font-weight: 900;
+}
+
+/* HStack */
 
 .host-view .h-stack {
 	box-sizing: border-box;

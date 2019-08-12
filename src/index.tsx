@@ -2,6 +2,7 @@ import "./style.css"
 
 import HostView from "./HostView"
 import NavigationView from "./NavigationView"
+import NavigationBar from "./NavigationBar"
 import ScrollView from "./ScrollView"
 import Spacer from "./Spacer"
 import Text from "./Text"
@@ -11,6 +12,7 @@ import List from "./List"
 
 export { HostView }
 export { NavigationView }
+export { NavigationBar }
 export { ScrollView }
 export { Spacer }
 export { Text }

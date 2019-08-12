@@ -39,112 +39,60 @@ interface ChidrenResult {
 
 export default ({ children, style }: { children: any, style?: CSSProperties }) => {
 
-	const getLayoutConstraints = (element: HTMLElement, layoutConstraints: LayoutConstraints) => {
-
-		const newLayoutConstraints: LayoutConstraints = { ...layoutConstraints }
-
-		if (element.style.height) {
-			const constraint: string = element.style.height
-			if (constraint.includes("%")) {
-				newLayoutConstraints.height = element.getBoundingClientRect().height
-			} else {
-				newLayoutConstraints.height = parseInt(constraint)
+	const getPaddingTop = (element: HTMLElement): number => {
+		const paddingTop = element.style.paddingTop
+		if (paddingTop) {
+			if (paddingTop.includes("%")) {
+				const percentage: number = parseInt(paddingTop.replace("%", ""))
+				return element.getBoundingClientRect().height * percentage
 			}
+			return parseInt(paddingTop)
 		}
-		if (element.style.width) {
-			const constraint: string = element.style.width
-			if (constraint.includes("%")) {
-				newLayoutConstraints.width = element.getBoundingClientRect().width
-			} else {
-				newLayoutConstraints.width = parseInt(constraint)
-			}
-		}
-		if (element.style.minHeight) {
-			const constraint: string = element.style.minHeight
-			if (constraint.includes("%")) {
-				newLayoutConstraints.minHeight = element.getBoundingClientRect().height
-			} else {
-				newLayoutConstraints.minHeight = parseInt(constraint)
-			}
-		}
-		if (element.style.minWidth) {
-			const constraint: string = element.style.minWidth
-			if (constraint.includes("%")) {
-				newLayoutConstraints.minWidth = element.getBoundingClientRect().width
-			} else {
-				newLayoutConstraints.minWidth = parseInt(constraint)
-			}
-		}
-		if (element.style.maxHeight) {
-			const constraint: string = element.style.maxHeight
-			if (constraint.includes("%")) {
-				newLayoutConstraints.maxHeight = element.getBoundingClientRect().width
-			} else {
-				newLayoutConstraints.maxHeight = parseInt(constraint)
-			}
-		}
-		if (element.style.maxWidth) {
-			const constraint: string = element.style.maxWidth
-			if (constraint.includes("%")) {
-				newLayoutConstraints.maxWidth = element.getBoundingClientRect().width
-			} else {
-				newLayoutConstraints.maxWidth = parseInt(constraint)
-			}
-		}
-
-		return newLayoutConstraints
+		return 0
 	}
 
-	const getInsideElementsWidth = (element: HTMLElement): number => {
-		if (element.className.includes("v-stack")) {
-			const width = element.style.width
-			if (width) {
-				if (width.includes("%")) {
-					return element.getBoundingClientRect().width
-				}
-				return parseInt(width)
+	const getPaddingBottom = (element: HTMLElement): number => {
+		const paddingBottom = element.style.paddingBottom
+		if (paddingBottom) {
+			if (paddingBottom.includes("%")) {
+				const percentage: number = parseInt(paddingBottom.replace("%", ""))
+				return element.getBoundingClientRect().height * percentage
 			}
-			return element.getBoundingClientRect().width
+			return parseInt(paddingBottom)
 		}
-		const elements = Array.from(element.children)
-			.filter(item => !item.className.includes("expandable"))
-		const elementsLength = elements
-			.map((item) => {
-				const element = (item as HTMLElement)
-				const width = element.style.width
-				if (width) {
-					if (width.includes("%")) {
-						return element.getBoundingClientRect().width
-					}
-					return parseInt(width)
-				}
-				if (Array.from(element.children).length === 0) {
-					return element.getBoundingClientRect().width
-				}
-				return getInsideElementsWidth(element)
-			})
-			.reduce((prev, current) => prev + current, 0)
-		return elementsLength
+		return 0
 	}
 
-	const getSize = (element: HTMLElement): Size => {
-		let height = element.getBoundingClientRect().height
-		let width = element.getBoundingClientRect().width
-		const heightStr = element.style.height
-		const widthStr = element.style.width
-		if (heightStr) {
-			if (heightStr.includes("%")) {
-				height = element.getBoundingClientRect().height
+	const getPaddingLeft = (element: HTMLElement): number => {
+		const paddingLeft = element.style.paddingLeft
+		if (paddingLeft) {
+			if (paddingLeft.includes("%")) {
+				const percentage: number = parseInt(paddingLeft.replace("%", ""))
+				return element.getBoundingClientRect().height * percentage
 			}
-			height = parseInt(heightStr)
+			return parseInt(paddingLeft)
 		}
-		if (widthStr) {
-			if (widthStr.includes("%")) {
-				width = element.getBoundingClientRect().width
+		return 0
+	}
+
+	const getPaddingRight = (element: HTMLElement): number => {
+		const paddingRight = element.style.paddingRight
+		if (paddingRight) {
+			if (paddingRight.includes("%")) {
+				const percentage: number = parseInt(paddingRight.replace("%", ""))
+				return element.getBoundingClientRect().height * percentage
 			}
-			width = parseInt(widthStr)
+			return parseInt(paddingRight)
 		}
-		return { width: width, height: height }
+		return 0
+	}
+
+	const getPaddingVertical = (element: HTMLElement): number => {
+		return getPaddingTop(element) + getPaddingBottom(element)
+	}
+
+	const getPaddingHorizontal = (element: HTMLElement): number => {
+		return getPaddingLeft(element) + getPaddingRight(element)
 	}
 
 	const getConstraintSize = (element: HTMLElement): ConstraintSize => {
@@ -236,45 +184,52 @@ export default ({ children, style }: { children: any, style?: CSSProperties }) =
 		}
 
 		const unresolved: HTMLElement[] = elements.filter(item => item.className.includes("expandable"))
-
 		const constraintSize: ConstraintSize = getConstraintSize(element)
 		if (constraintSize.width) {
 			const HorizontalUnresolved = unresolved.filter(item => item.className.includes("horizontal"))
-			const HorizontalResolved = elements.filter(item => !(item.className.includes("horizontal") && item.className.includes("expandable")))
+			const HorizontalResolved = elements.filter(item =>
+				!(item.className.includes("horizontal") && item.className.includes("expandable")) &&
+				!(item.className.includes("applicatal"))
+			)
 			if (HorizontalUnresolved.length > 0) {
 				const constraintLength = constraintSize.width || 0
 				const elementCount = element.className.includes("column") ? 1 : HorizontalUnresolved.length
 				const insideElementLength = element.className.includes("column") ? 0 : HorizontalResolved.map(item => getInstrinsicWidth(item)).reduce((prev, current) => prev + current, 0)
-				const length = (constraintLength - insideElementLength) / elementCount
+				const padding = getPaddingHorizontal(element)
+				const length = (constraintLength - insideElementLength - padding) / elementCount
 				HorizontalUnresolved.forEach(item => item.style.width = `${length}px`)
 
-				console.log("HorizontalUnresolved", HorizontalUnresolved)
-				console.log("HorizontalResolved", HorizontalResolved)
-				console.log("constraintSize.width", constraintSize.width)
-				console.log("constraintLength", constraintLength)
-				console.log("elementCount", elementCount)
-				console.log("insideElementLength", insideElementLength)
-				console.log("length", length)
+				// console.log("HorizontalUnresolved", HorizontalUnresolved)
+				// console.log("HorizontalResolved", HorizontalResolved)
+				// console.log("constraintSize.width", constraintSize.width)
+				// console.log("constraintLength", constraintLength)
+				// console.log("elementCount", elementCount)
+				// console.log("insideElementLength", insideElementLength)
+				// console.log("length", length)
 			}
 		}
 
 		if (constraintSize.height) {
 			const VerticalUnresolved = unresolved.filter(item => item.className.includes("vertical"))
-			const VerticalResolved = elements.filter(item => !(item.className.includes("vertical") && item.className.includes("expandable")))
+			const VerticalResolved = elements.filter(item =>
+				!(item.className.includes("vertical") && item.className.includes("expandable")) &&
+				!(item.className.includes("applicatal"))
+			)
 			if (VerticalUnresolved.length > 0) {
 				const constraintLength = constraintSize.height || 0
 				const elementCount = element.className.includes("row") ? 1 : VerticalUnresolved.length
 				const insideElementLength = element.className.includes("row") ? 0 : VerticalResolved.map(item => getInstrinsicHeight(item)).reduce((prev, current) => prev + current, 0)
-				const length = (constraintLength - insideElementLength) / elementCount
+				const padding = getPaddingVertical(element)
+				const length = (constraintLength - insideElementLength - padding) / elementCount
 				VerticalUnresolved.forEach(item => item.style.height = `${length}px`)
 
-				console.log("VerticalUnresolved", VerticalUnresolved)
-				console.log("VerticalResolved", VerticalResolved)
-				console.log("constraintSize.height", constraintSize.height)
-				console.log("constraintLength", constraintLength)
-				console.log("elementCount", elementCount)
-				console.log("insideElementLength", insideElementLength)
-				console.log("length", length)
+				// console.log("VerticalUnresolved", VerticalUnresolved)
+				// console.log("VerticalResolved", VerticalResolved)
+				// console.log("constraintSize.height", constraintSize.height)
+				// console.log("constraintLength", constraintLength)
+				// console.log("elementCount", elementCount)
+				// console.log("insideElementLength", insideElementLength)
+				// console.log("length", length)
 			}
 		}
 
@@ -337,7 +292,6 @@ export default ({ children, style }: { children: any, style?: CSSProperties }) =
 		prepare(host)
 		explore(host)
 	}
-
 
 	return (
 		<div className="host-view" style={style} ref={ref}>
