@@ -1,5 +1,4 @@
 import React, { CSSProperties } from "react"
-import ReactDOM from "react-dom"
 
 export default ({ children, style }: { children: any, style?: CSSProperties }) => {
 
