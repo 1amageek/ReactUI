@@ -1,25 +1,4 @@
-import React, { CSSProperties } from "react"
-import { typeAlias } from "@babel/types";
-import { number } from "prop-types";
-
-interface LayoutConstraints {
-	minWidth?: number
-	minHeight?: number
-	maxWidth?: number
-	maxHeight?: number
-	width?: number
-	height?: number
-}
-
-interface UnsolvedElements {
-	vertical: HTMLElement[]
-	horizontal: HTMLElement[]
-}
-
-interface LayoutInformation {
-	unsolvedElements: UnsolvedElements
-	layoutConstraints: LayoutConstraints
-}
+import React, { useState, CSSProperties } from "react"
 
 interface Size {
 	width: number
@@ -31,10 +10,26 @@ interface ConstraintSize {
 	height?: number
 }
 
-interface ChidrenResult {
-	size: Size
-	element: HTMLElement
-	unresolved: HTMLElement[]
+class Task {
+
+	isCancelled: boolean = false
+
+	private execute: () => void
+
+	perform() {
+		if (this.isCancelled) {
+			return
+		}
+		this.execute()
+	}
+
+	cancel() {
+		this.isCancelled = true
+	}
+
+	constructor(execute: () => void) {
+		this.execute = execute
+	}
 }
 
 export default ({ children, style }: { children: any, style?: CSSProperties }) => {
@@ -176,8 +171,8 @@ export default ({ children, style }: { children: any, style?: CSSProperties }) =
 	}
 
 	const explore = (element: HTMLElement, parent?: HTMLElement): void => {
-		console.log("-------------------------------")
-		console.log(element)
+		// console.log("-------------------------------")
+		// console.log(element)
 		const elements = Array.from(element.children).map(item => (item as HTMLElement))
 		if (elements.length === 0) {
 			return
@@ -288,9 +283,30 @@ export default ({ children, style }: { children: any, style?: CSSProperties }) =
 		})
 	}
 
-	const ref = (host: HTMLDivElement) => {
-		prepare(host)
-		explore(host)
+	const [windowSize, setWindowSize] = useState({ size: window.screen.width, height: window.screen.height })
+
+	let task: Task | null
+
+	window.addEventListener('resize', (event) => {
+		if (task) {
+			task.cancel()
+		}
+		const _task = new Task(() => {
+			setTimeout(() => {
+				if (!_task.isCancelled) {
+					setWindowSize({ size: window.screen.width, height: window.screen.height })
+				}
+			}, 330)
+		})
+		task = _task
+		_task.perform()
+	})
+
+	const ref = (host: HTMLDivElement | null) => {
+		if (host) {
+			prepare(host)
+			explore(host)
+		}
 	}
 
 	return (

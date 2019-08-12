@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 import { HostView, Spacer, Text, HStack, VStack, NavigationView, ScrollView, List, Button, Axis, NavigationBar, NavigationBarTitle, NavigationBarItem, NavigationBarAlignment } from 'web-ui'
@@ -7,9 +7,13 @@ const App: React.FC = () => {
 
   const onClick = () => {
     console.log("aaa")
+    setTitle("www")
   }
 
+  const [title, setTitle] = useState("hoge")
+
   return (
+
     <HostView style={{ margin: 0, padding: 0, height: "100%", width: "100%", position: "absolute" }}>
 
       <NavigationView>

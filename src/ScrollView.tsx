@@ -1,6 +1,5 @@
 import React, { CSSProperties } from "react"
 import { Axis } from "."
-import * as LayoutEngine from "./LayoutEngine"
 
 const ContentView = ({ children, style, axes }: { children: any, style?: CSSProperties, axes?: Axis[] }) => {
 	const ref = (self: HTMLDivElement) => { }
