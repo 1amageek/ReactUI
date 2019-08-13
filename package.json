@@ -1,6 +1,6 @@
 {
   "private": false,
-  "name": "react-ui",
+  "name": "@1amageek/react-ui",
   "publishConfig": {
     "access": "public"
   },
