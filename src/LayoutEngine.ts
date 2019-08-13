@@ -151,7 +151,6 @@ export const layout = (element: HTMLElement): void => {
 	const constraintSize: ConstraintSize = getConstraintSize(element)
 	if (constraintSize.width) {
 		const HorizontalUnresolved = unresolved.filter(item => item.className.includes("horizontal") && (!item.style.width))
-		console.log(HorizontalUnresolved)
 		const HorizontalResolved = elements.filter(item =>
 			(
 				!(item.className.includes("horizontal") && item.className.includes("expandable")) &&

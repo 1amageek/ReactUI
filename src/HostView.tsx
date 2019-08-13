@@ -1,5 +1,5 @@
 import React, { useState, CSSProperties } from "react"
-import { layout } from "./LayoutEngine"
+import { prepareLayout, layout } from "./LayoutEngine"
 class Task {
 
 	isCancelled: boolean = false
@@ -45,6 +45,7 @@ export default ({ children, style }: { children: any, style?: CSSProperties }) =
 
 	const ref = (host: HTMLDivElement | null) => {
 		if (host) {
+			prepareLayout(host)
 			layout(host)
 		}
 	}
