@@ -1,15 +1,6 @@
-import { element } from "prop-types";
-
-const isHorizontalExpandable = (element: HTMLElement): boolean => {
-	return element.className.includes("horizontal") && element.className.includes("expandable")
-}
-
-const isVerticalExpandable = (element: HTMLElement): boolean => {
-	return element.className.includes("vertical") && element.className.includes("expandable")
-}
-
-const isScrollView = (element: HTMLElement): boolean => {
-	return element.className.includes("scroll-view")
+interface ConstraintSize {
+	width?: number
+	height?: number
 }
 
 const getPaddingTop = (element: HTMLElement): number => {
@@ -68,138 +59,40 @@ const getPaddingHorizontal = (element: HTMLElement): number => {
 	return getPaddingLeft(element) + getPaddingRight(element)
 }
 
-const getOutsideDeterminedPaddingVertical = (element: HTMLElement, padding: number): number => {
+const getConstraintSize = (element: HTMLElement): ConstraintSize => {
+	let constraintHeight
+	let constraintWidth
 	const height = element.style.height
-	const _padding = padding + getPaddingVertical(element)
-	if (height) {
-		return _padding
-	}
-	return getOutsideDeterminedPaddingVertical(element.parentElement as HTMLElement, _padding)
-}
-
-const getOutsideDeterminedPaddingHorizontal = (element: HTMLElement, padding: number): number => {
-	const width = element.style.width
-	const _padding = padding + getPaddingHorizontal(element)
-	if (width) {
-		return _padding
-	}
-	return getOutsideDeterminedPaddingHorizontal(element.parentElement as HTMLElement, _padding)
-}
-
-const getOutsideHeightDeterminedElement = (element: HTMLElement): HTMLElement => {
-	const height = element.style.height
-	if (height) {
-		return element
-	}
-	return getOutsideHeightDeterminedElement(element.parentElement as HTMLElement)
-}
-
-const getOutsideWidthDeterminedElement = (element: HTMLElement): HTMLElement => {
-	const width = element.style.width
-	if (width) {
-		return element
-	}
-	return getOutsideWidthDeterminedElement(element.parentElement as HTMLElement)
-}
-
-export const getOutsideDeterminedHeight = (element: HTMLElement): number => {
-	const outsideDeterminedElement = getOutsideHeightDeterminedElement(element)
-	const height = outsideDeterminedElement.style.height
 	if (height) {
 		if (height.includes("%")) {
-			return outsideDeterminedElement.getBoundingClientRect().height
+			constraintHeight = element.getBoundingClientRect().height
+		} else {
+			constraintHeight = parseInt(height)
 		}
-		return parseInt(height)
 	}
-	return 0
-}
-
-export const getOutsideDeterminedWidth = (element: HTMLElement): number => {
-	const outsideDeterminedElement = getOutsideWidthDeterminedElement(element)
-	const width = outsideDeterminedElement.style.width
+	const width = element.style.width
 	if (width) {
 		if (width.includes("%")) {
-			return outsideDeterminedElement.getBoundingClientRect().width
+			constraintWidth = element.getBoundingClientRect().width
+		} else {
+			constraintWidth = parseInt(width)
+		}
+	}
+	return { width: constraintWidth, height: constraintHeight }
+}
+
+const getInstrinsicWidth = (element: HTMLElement): number => {
+	const width = element.style.width
+	if (width) {
+		if (width.includes("%")) {
+			return element.getBoundingClientRect().width
 		}
 		return parseInt(width)
 	}
-	return 0
-}
-
-const getOutsideElementsHeight = (element: HTMLElement): number => {
-	const parent = (element.parentElement as HTMLElement)
-	if (parent.className.includes("h-stack")) {
-		return 0
-	}
-	const elements = Array.from(parent.children).filter(item => {
-		return (!item.isEqualNode(element)) &&
-			!isHorizontalExpandable(item as HTMLElement) &&
-			!(item as HTMLElement).className.includes("vertical")
-	})
-	const elementsLength = elements.map((element) => (element as HTMLElement).getBoundingClientRect().height || 0).reduce((prev, current) => prev + current, 0)
-	return elementsLength
-}
-
-const getOutsideElementsWidth = (element: HTMLElement): number => {
-	const parent = (element.parentElement as HTMLElement)
-	if (parent.className.includes("v-stack")) {
-		return 0
-	}
-	const elements = Array.from(parent.children).filter(item => {
-		return (!item.isEqualNode(element)) &&
-			!isVerticalExpandable(item as HTMLElement) &&
-			!(item as HTMLElement).className.includes("horizontal")
-	})
-	const elementsLength = elements.map((element) => (element as HTMLElement).getBoundingClientRect().width || 0).reduce((prev, current) => prev + current, 0)
-	return elementsLength
-}
-
-const getInsideElementsHeight = (element: HTMLElement): number => {
-	if (element.className.includes("h-stack")) {
-		const height = element.style.height
-		if (height) {
-			if (height.includes("%")) {
-				return element.getBoundingClientRect().height
-			}
-			return parseInt(height)
-		}
-		return element.getBoundingClientRect().height
-	}
-	const elements = Array.from(element.children)
-		.filter(item => !item.className.includes("expandable"))
-	const elementsLength = elements
-		.map((item) => {
-			const element = (item as HTMLElement)
-			const height = element.style.height
-			if (height) {
-				if (height.includes("%")) {
-					return element.getBoundingClientRect().height
-				}
-				return parseInt(height)
-			}
-			if (Array.from(element.children).length === 0) {
-				return element.getBoundingClientRect().height
-			}
-			return getInsideElementsHeight(element)
-		})
-		.reduce((prev, current) => prev + current, 0)
-	return elementsLength
-}
-
-const getInsideElementsWidth = (element: HTMLElement): number => {
-	if (element.className.includes("v-stack")) {
-		const width = element.style.width
-		if (width) {
-			if (width.includes("%")) {
-				return element.getBoundingClientRect().width
-			}
-			return parseInt(width)
-		}
+	if (Array.from(element.children).length === 0) {
 		return element.getBoundingClientRect().width
 	}
 	const elements = Array.from(element.children)
-		.filter(item => !item.className.includes("expandable"))
-	const elementsLength = elements
 		.map((item) => {
 			const element = (item as HTMLElement)
 			const width = element.style.width
@@ -209,99 +102,159 @@ const getInsideElementsWidth = (element: HTMLElement): number => {
 				}
 				return parseInt(width)
 			}
-			if (Array.from(element.children).length === 0) {
-				return element.getBoundingClientRect().width
+			return getInstrinsicWidth(element)
+		})
+	if (element.className.includes("column")) {
+		return elements.reduce((prev, current) => Math.max(prev, current), 0)
+	}
+	return elements.reduce((prev, current) => prev + current, 0)
+}
+
+const getInstrinsicHeight = (element: HTMLElement): number => {
+	const height = element.style.height
+	if (height) {
+		if (height.includes("%")) {
+			return element.getBoundingClientRect().height
+		}
+		return parseInt(height)
+	}
+	if (Array.from(element.children).length === 0) {
+		return element.getBoundingClientRect().height
+	}
+	const elements = Array.from(element.children)
+		.map((item) => {
+			const element = (item as HTMLElement)
+			const height = element.style.height
+			if (height) {
+				if (height.includes("%")) {
+					return element.getBoundingClientRect().height
+				}
+				return parseInt(height)
 			}
-			return getInsideElementsWidth(element)
+			return getInstrinsicHeight(element)
 		})
-		.reduce((prev, current) => prev + current, 0)
-	return elementsLength
+	if (element.className.includes("row")) {
+		return elements.reduce((prev, current) => Math.max(prev, current), 0)
+	}
+	return elements.reduce((prev, current) => prev + current, 0)
 }
 
-export const getVerticalExpandableElements = (element: HTMLElement) => {
-	return Array.from(getOutsideHeightDeterminedElement(element)
-		.querySelectorAll(".expandable.vertical"))
+export const layout = (element: HTMLElement): void => {
+	// console.log("-------------------------------")
+	// console.log(element)
+	const elements = Array.from(element.children).map(item => (item as HTMLElement))
+	if (elements.length === 0) {
+		return
+	}
+
+	const unresolved: HTMLElement[] = elements.filter(item => item.className.includes("expandable"))
+	const constraintSize: ConstraintSize = getConstraintSize(element)
+	if (constraintSize.width) {
+		const HorizontalUnresolved = unresolved.filter(item => item.className.includes("horizontal") && (!item.style.width))
+		console.log(HorizontalUnresolved)
+		const HorizontalResolved = elements.filter(item =>
+			(
+				!(item.className.includes("horizontal") && item.className.includes("expandable")) &&
+				!(item.className.includes("applicatal"))
+			) || item.style.width
+		)
+		if (HorizontalUnresolved.length > 0) {
+			const constraintLength = constraintSize.width || 0
+			const elementCount = element.className.includes("column") ? 1 : HorizontalUnresolved.length
+			const insideElementLength = element.className.includes("column") ? 0 : HorizontalResolved.map(item => getInstrinsicWidth(item)).reduce((prev, current) => prev + current, 0)
+			const padding = getPaddingHorizontal(element)
+			const length = (constraintLength - insideElementLength - padding) / elementCount
+			HorizontalUnresolved.forEach(item => item.style.width = `${length}px`)
+
+			// console.log("HorizontalUnresolved", HorizontalUnresolved)
+			// console.log("HorizontalResolved", HorizontalResolved)
+			// console.log("constraintSize.width", constraintSize.width)
+			// console.log("constraintLength", constraintLength)
+			// console.log("elementCount", elementCount)
+			// console.log("insideElementLength", insideElementLength)
+			// console.log("length", length)
+		}
+	}
+
+	if (constraintSize.height) {
+		const VerticalUnresolved = unresolved.filter(item => item.className.includes("vertical") && (!item.style.height))
+		const VerticalResolved = elements.filter(item =>
+			(
+				!(item.className.includes("vertical") && item.className.includes("expandable")) &&
+				!(item.className.includes("applicatal"))
+			) || item.style.height
+		)
+		if (VerticalUnresolved.length > 0) {
+			const constraintLength = constraintSize.height || 0
+			const elementCount = element.className.includes("row") ? 1 : VerticalUnresolved.length
+			const insideElementLength = element.className.includes("row") ? 0 : VerticalResolved.map(item => getInstrinsicHeight(item)).reduce((prev, current) => prev + current, 0)
+			const padding = getPaddingVertical(element)
+			const length = (constraintLength - insideElementLength - padding) / elementCount
+			VerticalUnresolved.forEach(item => item.style.height = `${length}px`)
+
+			// console.log("VerticalUnresolved", VerticalUnresolved)
+			// console.log("VerticalResolved", VerticalResolved)
+			// console.log("constraintSize.height", constraintSize.height)
+			// console.log("constraintLength", constraintLength)
+			// console.log("elementCount", elementCount)
+			// console.log("insideElementLength", insideElementLength)
+			// console.log("length", length)
+		}
+	}
+
+	unresolved.forEach(item => layout(item))
 }
 
-export const getHorizontalExpandableElements = (element: HTMLElement) => {
-	return Array.from(getOutsideWidthDeterminedElement(element)
-		.querySelectorAll(".expandable.horizontal"))
-}
 
-export const getVerticalExpandableChildren = (element: HTMLElement) => {
-	return Array.from(element.querySelectorAll(".expandable.vertical"))
-}
+export const prepareLayout = (element: HTMLElement) => {
 
-export const getHorizontalExpandableChildren = (element: HTMLElement) => {
-	return Array.from(element.querySelectorAll(".expandable.horizontal"))
-}
+	const elements = Array.from(element.children)
 
-export const markSpacer = (element: HTMLElement) => {
-	const verticalExpandables = Array.from(getOutsideHeightDeterminedElement(element).querySelectorAll(".spacer"))
-		.filter(item => {
-			return ((item.parentElement as HTMLElement).className.includes("v-stack")) && (!item.className.includes("vertical"))
+	if (element.className.includes("v-stack")) {
+		elements.forEach(item => {
+			if ((item as HTMLElement).className.includes("spacer")) {
+				item.className += " vertical"
+				if (!element.className.includes("expandable")) {
+					element.className += "expandable"
+				}
+			}
 		})
-	verticalExpandables.map(item => {
-		item.className += " vertical"
-	})
+	}
 
-	const horizontalExpandables = Array.from(getOutsideWidthDeterminedElement(element).querySelectorAll(".spacer"))
-		.filter(item => {
-			return ((item.parentElement as HTMLElement).className.includes("h-stack")) && (!item.className.includes("horizontal"))
+	if (element.className.includes("h-stack")) {
+		elements.forEach(item => {
+			if ((item as HTMLElement).className.includes("spacer")) {
+				item.className += " horizontal"
+				if (!element.className.includes("expandable")) {
+					element.className += "expandable"
+				}
+			}
 		})
-	horizontalExpandables.map(item => {
-		item.className += " horizontal"
-	})
-}
+	}
 
-export const getOptimizedExpandableHeight = (element: HTMLElement): number => {
-	const expandables = getVerticalExpandableElements(element)
-	if (expandables.length === 0) {
-		return 0
+	if (element.className.includes("z-stack")) {
+		elements.forEach(item => {
+			item.className += " applicatal"
+		})
 	}
-	let elemntCount = expandables.length
-	if ((element.parentElement as HTMLElement).className.includes("h-stack")) {
-		elemntCount = 1
-	}
-	const maxLength = getOutsideDeterminedHeight(element)
-	const paddingLength = getOutsideDeterminedPaddingVertical(element, 0)
-	const outsideElementsLength = getOutsideElementsHeight(element)
-	const inseideElementsLength = getInsideElementsHeight(element)
-	const growthableLength = maxLength - outsideElementsLength - inseideElementsLength - paddingLength
-	const length = growthableLength / elemntCount
-	console.log("-------")
-	console.log(element)
-	console.log(maxLength)
-	console.log("outsideElementsLength", outsideElementsLength)
-	console.log("paddingLength", paddingLength)
-	console.log("inseideElementsLength", inseideElementsLength)
-	console.log("growthableLength", growthableLength)
-	console.log(expandables)
-	return length
-}
 
-export const getOptimizedExpandableWidth = (element: HTMLElement): number => {
-	const expandables = getHorizontalExpandableElements(element)
-	if (expandables.length === 0) {
-		return 0
+	if (element.className.includes("expandable")) {
+		const parent = (element.parentElement as HTMLElement)
+		if (element.className.includes("horizontal") && !parent.style.width) {
+			if (!parent.className.includes("expandable")) {
+				parent.className += " expandable"
+			}
+			if (!parent.className.includes("horizontal")) {
+				parent.className += " horizontal"
+			}
+		}
+		if (element.className.includes("vertical") && !parent.style.height) {
+			if (!parent.className.includes("expandable")) {
+				parent.className += " expandable"
+			}
+			if (!parent.className.includes("vertical")) {
+				parent.className += " vertical"
+			}
+		}
 	}
-	let elemntCount = expandables.length
-	if ((element.parentElement as HTMLElement).className.includes("v-stack")) {
-		elemntCount = 1
-	}
-	const maxLength = getOutsideDeterminedWidth(element)
-	const paddingLength = getOutsideDeterminedPaddingHorizontal(element, 0)
-	const outsideElementsLength = getOutsideElementsWidth(element)
-	const inseideElementsLength = getInsideElementsWidth(element)
-	const growthableLength = maxLength - outsideElementsLength - inseideElementsLength - paddingLength
-	const length = growthableLength / elemntCount
-	// console.log("-------")
-	// console.log("element", element)
-	// console.log("maxLength", maxLength)
-	// console.log("outsideElementsLength", outsideElementsLength)
-	// console.log("paddingLength", paddingLength)
-	// console.log("inseideElementsLength", inseideElementsLength)
-	// console.log(growthableLength)
-	// console.log(expandables)
-	return length
 }

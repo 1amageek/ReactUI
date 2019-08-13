@@ -6,6 +6,7 @@ import NavigationBar from "./NavigationBar"
 import NavigationBarItem from "./NavigationBarItem"
 import NavigationBarTitle from "./NavigationBarTitle"
 import ScrollView from "./ScrollView"
+import SplitView from "./SplitView"
 import Spacer from "./Spacer"
 import Text from "./Text"
 import HStack from "./HStack"
@@ -19,6 +20,7 @@ export { NavigationBar }
 export { NavigationBarItem }
 export { NavigationBarTitle }
 export { ScrollView }
+export { SplitView }
 export { Spacer }
 export { Text }
 export { HStack }

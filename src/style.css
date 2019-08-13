@@ -57,6 +57,7 @@
 	flex-direction: row;
 	align-content: center;
 	align-items: center;
+	justify-content: center;
 	align-self: center;
 }
 
@@ -195,7 +196,7 @@
 	margin: 0;
 	position: relative;
 	box-sizing: border-box;
-	border-bottom: 0.5px solid rgba(145, 145, 160, 0.6)
+	border-bottom: 0.5px solid rgba(145, 145, 160, 0.6);
 }
 
 .host-view ul.list .list-cell .list-cell-content-view {
@@ -206,4 +207,17 @@
 	position: absolute;
 	align-content: center;
 	align-items: center;
+}
+
+/* ScrollView*/
+
+.host-view .split-view {
+	box-sizing: border-box;
+	display: grid;
+	gap: 1px;
+	grid-template-rows: auto;
+}
+
+.host-view .split-view > div:first-child {
+	border-right: 0.5px solid rgba(145, 145, 160, 0.6);
 }
