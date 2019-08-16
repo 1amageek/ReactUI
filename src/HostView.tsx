@@ -22,7 +22,7 @@ class Task {
 	}
 }
 
-export default ({ children, style }: { children: any, style?: CSSProperties }) => {
+export const HostView = ({ children, style }: { children: any, style?: CSSProperties }) => {
 
 	const [windowSize, setWindowSize] = useState({ size: window.screen.width, height: window.screen.height })
 

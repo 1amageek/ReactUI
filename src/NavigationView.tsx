@@ -1,7 +1,7 @@
 import React, { CSSProperties } from "react"
 import { prepareLayout } from "./LayoutEngine"
 
-export default ({ children, style }: { children: any, style?: CSSProperties }) => {
+export const NavigationView = ({ children, style }: { children: any, style?: CSSProperties }) => {
 
 	const _style: CSSProperties = {...style}
 	_style.paddingTop = "96px"

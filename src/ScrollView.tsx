@@ -20,7 +20,7 @@ const InnerView = ({ children, style, axes }: { children: any, style?: CSSProper
 	)
 }
 
-export default ({ children, style, axes = [Axis.vertical] }: { children: any, style?: CSSProperties, axes?: Axis[] }) => {
+export const ScrollView = ({ children, style, axes = [Axis.vertical] }: { children: any, style?: CSSProperties, axes?: Axis[] }) => {
 
 	const ref = (element: HTMLElement | null) => {
 		if (element) {

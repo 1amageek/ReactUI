@@ -2,7 +2,7 @@ import React, { CSSProperties } from "react"
 import { HorizontalAlignment } from "."
 import { prepareLayout } from "./LayoutEngine"
 
-export default ({ children, style, alignment = HorizontalAlignment.center, }: { children: any, style?: CSSProperties, alignment?: HorizontalAlignment }) => {
+export const HStack = ({ children, style, alignment = HorizontalAlignment.center, }: { children: any, style?: CSSProperties, alignment?: HorizontalAlignment }) => {
 
 	const ref = (element: HTMLElement | null) => {
 		if (element) {

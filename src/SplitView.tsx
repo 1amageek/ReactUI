@@ -1,8 +1,7 @@
 import React, { CSSProperties } from "react"
-import { HorizontalAlignment } from "."
 import { prepareLayout } from "./LayoutEngine"
 
-export default ({ children, style, primaryColumnWidth }: { children: any, style?: CSSProperties, primaryColumnWidth?: number }) => {
+export const SplitView = ({ children, style, primaryColumnWidth }: { children: any, style?: CSSProperties, primaryColumnWidth?: number }) => {
 
 	const _style: CSSProperties = { ...style }
 	_style.gridTemplateColumns = primaryColumnWidth ? `${primaryColumnWidth}px 1fr` : "1fr 1fr"

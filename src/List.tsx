@@ -1,9 +1,9 @@
 import React, { CSSProperties } from "react"
-import ScrollView from "./ScrollView"
+import { ScrollView } from "./ScrollView"
 import { Axis } from "."
 import { prepareLayout } from "./LayoutEngine"
 
-export default ({ children, style }: { children: any, style?: CSSProperties }) => {
+export const List = ({ children, style }: { children: any, style?: CSSProperties }) => {
 
 	const ref = (element: HTMLElement | null) => {
 		if (element) {

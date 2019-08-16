@@ -2,7 +2,7 @@ import React, { CSSProperties } from "react"
 import { VerticalAlignment } from "."
 import { prepareLayout } from "./LayoutEngine"
 
-export default ({ children, style, alignment = VerticalAlignment.center, }: { children: any, style?: CSSProperties, alignment?: VerticalAlignment }) => {
+export const VStack = ({ children, style, alignment = VerticalAlignment.center, }: { children: any, style?: CSSProperties, alignment?: VerticalAlignment }) => {
 
 	const ref = (element: HTMLElement | null) => {
 		if (element) {
