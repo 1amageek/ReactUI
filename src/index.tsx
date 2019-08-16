@@ -1,4 +1,4 @@
-// import "./style.css"
+import "./style.css"
 
 import { HostView } from "./HostView"
 import { NavigationView } from "./NavigationView"
