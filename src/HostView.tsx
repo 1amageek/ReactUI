@@ -24,24 +24,27 @@ class Task {
 
 export const HostView = ({ children, style }: { children: any, style?: CSSProperties }) => {
 
-	const [windowSize, setWindowSize] = useState({ size: window.screen.width, height: window.screen.height })
-
 	let task: Task | null
 
-	window.addEventListener('resize', (event) => {
-		if (task) {
-			task.cancel()
-		}
-		const _task = new Task(() => {
-			setTimeout(() => {
-				if (!_task.isCancelled) {
-					setWindowSize({ size: window.screen.width, height: window.screen.height })
-				}
-			}, 230)
+	if (window) {
+
+		const [windowSize, setWindowSize] = useState({ size: window.screen.width, height: window.screen.height })
+
+		window.addEventListener('resize', (event) => {
+			if (task) {
+				task.cancel()
+			}
+			const _task = new Task(() => {
+				setTimeout(() => {
+					if (!_task.isCancelled) {
+						setWindowSize({ size: window.screen.width, height: window.screen.height })
+					}
+				}, 230)
+			})
+			task = _task
+			_task.perform()
 		})
-		task = _task
-		_task.perform()
-	})
+	}
 
 	const ref = (host: HTMLDivElement | null) => {
 		if (host) {
