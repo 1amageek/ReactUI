@@ -214,7 +214,7 @@ export const prepareLayout = (element: HTMLElement) => {
 			if ((item as HTMLElement).className.includes("spacer")) {
 				item.className += " vertical"
 				if (!element.className.includes("expandable")) {
-					element.className += "expandable"
+					element.className += " expandable"
 				}
 			}
 		})
@@ -225,7 +225,7 @@ export const prepareLayout = (element: HTMLElement) => {
 			if ((item as HTMLElement).className.includes("spacer")) {
 				item.className += " horizontal"
 				if (!element.className.includes("expandable")) {
-					element.className += "expandable"
+					element.className += " expandable"
 				}
 			}
 		})
