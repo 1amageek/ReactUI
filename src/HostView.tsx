@@ -26,25 +26,23 @@ export const HostView = ({ children, style }: { children: any, style?: CSSProper
 
 	let task: Task | null
 
-	if (window) {
-
-		const [windowSize, setWindowSize] = useState({ size: window.screen.width, height: window.screen.height })
-
-		window.addEventListener('resize', (event) => {
-			if (task) {
-				task.cancel()
-			}
-			const _task = new Task(() => {
-				setTimeout(() => {
-					if (!_task.isCancelled) {
-						setWindowSize({ size: window.screen.width, height: window.screen.height })
-					}
-				}, 230)
-			})
-			task = _task
-			_task.perform()
-		})
-	}
+	// if (window) {
+	// 	const [windowSize, setWindowSize] = useState({ size: window.screen.width, height: window.screen.height })
+	// 	window.addEventListener('resize', (event) => {
+	// 		if (task) {
+	// 			task.cancel()
+	// 		}
+	// 		const _task = new Task(() => {
+	// 			setTimeout(() => {
+	// 				if (!_task.isCancelled) {
+	// 					setWindowSize({ size: window.screen.width, height: window.screen.height })
+	// 				}
+	// 			}, 230)
+	// 		})
+	// 		task = _task
+	// 		_task.perform()
+	// 	})
+	// }
 
 	const ref = (host: HTMLDivElement | null) => {
 		if (host) {
