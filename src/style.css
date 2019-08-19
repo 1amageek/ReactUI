@@ -198,7 +198,7 @@
 	box-sizing: border-box;	
 }
 
-.host-view ul.list li.list-cell a {
+.host-view ul.list li.list-cell > a {
 	display: flex;
 	width: 100%;
 	box-sizing: border-box;
@@ -207,11 +207,11 @@
 	border-bottom: 0.5px solid rgba(145, 145, 160, 0.6);
 }
 
-.host-view ul.list li.list-cell a:hover {
+.host-view ul.list li.list-cell > a:hover {
 	background: #f9f9f9;
 }
 
-.host-view ul.list li.list-cell a .list-cell-content-view {
+.host-view ul.list li.list-cell > a .list-cell-content-view {
 	display: flex;
 	width: 100%;
 	height: 100%;
@@ -220,7 +220,7 @@
 	align-items: center;
 }
 
-.host-view ul.list li.list-cell a svg {
+.host-view ul.list li.list-cell > a > svg {
 	position: absolute;
 	width: 34px;
 	height: 34px;
