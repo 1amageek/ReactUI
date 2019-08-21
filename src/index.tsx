@@ -1,4 +1,4 @@
-// import "./style.css"
+import "./style.css"
 
 import { HostView } from "./HostView"
 import { NavigationView } from "./NavigationView"
@@ -13,6 +13,7 @@ import { HStack } from "./HStack"
 import { VStack } from "./VStack"
 import { List } from "./List"
 import { Button } from "./Button"
+import { Indicator } from "./Indicator"
 
 export { HostView }
 export { NavigationView }
@@ -27,6 +28,7 @@ export { HStack }
 export { VStack }
 export { List }
 export { Button }
+export { Indicator }
 
 export enum VerticalAlignment {
 	top = "top",

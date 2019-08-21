@@ -1,5 +1,5 @@
 import React from 'react';
-import { HostView, Spacer, Text, HStack, VStack, NavigationView, ScrollView, List, Button, Axis, NavigationBar, NavigationBarTitle, NavigationBarItem, NavigationBarAlignment, SplitView } from '@1amageek/react-ui'
+import { HostView, Spacer, Text, HStack, VStack, NavigationView, ScrollView, List, Button, Axis, NavigationBar, NavigationBarTitle, NavigationBarItem, NavigationBarAlignment, SplitView, Indicator } from '@1amageek/react-ui'
 
 const App: React.FC = () => {
   return (
@@ -12,33 +12,7 @@ const App: React.FC = () => {
             <Text>aaa</Text>
             <Spacer />
             <Text>aaa</Text>
-          </HStack>
-          <HStack>
-            <Text>aaa</Text>
-            <Spacer />
-            <Text>aaa</Text>
-          </HStack>
-          <HStack>
-            <Text>aaa</Text>
-            <Spacer />
-            <Text>aaa</Text>
-          </HStack>
-        </VStack>
-        <VStack>
-          <HStack>
-            <Text>aaa</Text>
-            <Spacer />
-            <Text>aaa</Text>
-          </HStack>
-          <HStack>
-            <Text>aaa</Text>
-            <Spacer />
-            <Text>aaa</Text>
-          </HStack>
-          <HStack>
-            <Text>aaa</Text>
-            <Spacer />
-            <Text>aaa</Text>
+            <Indicator />
           </HStack>
         </VStack>
       </List>
