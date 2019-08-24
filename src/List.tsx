@@ -15,13 +15,13 @@ export const List = ({ children, style }: { children: any, style?: CSSProperties
 		if (element) {
 			const elements = Array.from(element.children).map(item => (item as HTMLElement))
 			elements.forEach(item => {
-				if (item.className.includes("row")) {
+				if (!item.className.includes("row")) {
 					item.className += " row"
 				}
-				if (item.className.includes("expandable")) {
+				if (!item.className.includes("expandable")) {
 					item.className += " expandable"
 				}
-				if (item.className.includes("horizontal")) {
+				if (!item.className.includes("horizontal")) {
 					item.className += " horizontal"
 				}
 			})
@@ -35,7 +35,7 @@ export const List = ({ children, style }: { children: any, style?: CSSProperties
 					return (
 						<li className="list-cell row expandable horizontal" key={index}>
 							<a className="row expandable horizontal">
-								<div className="list-cell-content-view" style={{ paddingLeft: "16px", paddingRight: "16px", paddingTop: "4px", paddingBottom: "4px" }} ref={contetViewRef}>
+								<div className="list-cell-content-view row expandable horizontal" style={{ paddingLeft: "16px", paddingRight: "16px", paddingTop: "4px", paddingBottom: "4px" }} ref={contetViewRef}>
 									{child}
 								</div>
 							</a>
