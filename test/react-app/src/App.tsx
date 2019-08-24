@@ -5,17 +5,25 @@ const App: React.FC = () => {
   return (
     <HostView style={{ margin: 0, padding: 0, height: "100%", width: "100%", position: "absolute" }}>
 
-
-      <List>
-        <VStack>
-          <HStack>
-            <Text>aaa</Text>
-            <Spacer />
-            <Text>aaa</Text>
-            <Indicator />
-          </HStack>
-        </VStack>
-      </List>
+      <HStack>
+        <List>
+          <VStack>
+            <HStack>
+              <Text>aaa</Text>
+              <Spacer />
+              <Text>aaa</Text>
+              <Indicator />
+            </HStack>
+            <HStack>
+              <Text>aaa</Text>
+              <Spacer />
+              <Text>aaa</Text>
+              <Indicator />
+            </HStack>
+          </VStack>
+        </List>
+        <Text>aaa</Text>
+      </HStack>
 
       {/* <SplitView primaryColumnWidth={320}>
         <NavigationView>
