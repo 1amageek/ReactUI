@@ -1,11 +1,15 @@
 import React from 'react';
-import { HostView, Spacer, Text, HStack, VStack, NavigationView, ScrollView, List, Button, Axis, NavigationBar, NavigationBarTitle, NavigationBarItem, NavigationBarAlignment, SplitView, Indicator } from '@1amageek/react-ui'
+import { HostView, Spacer, Text, HStack, VStack, NavigationView, ScrollView, List, Button, Axis, NavigationBar, NavigationBarTitle, NavigationBarItem, NavigationBarAlignment, Form, TextField, TextFieldType, SplitView, Indicator } from '@1amageek/react-ui'
 
 const App: React.FC = () => {
   return (
     <HostView style={{ margin: 0, padding: 0, height: "100%", width: "100%", position: "absolute" }}>
 
-      <HStack>
+      <Form>
+        <TextField title="title" value="a" onEditingChanged={text => {console.log(text)}}/>
+      </Form>
+
+      {/* <HStack>
         <List>
           <VStack>
             <HStack>
@@ -23,7 +27,7 @@ const App: React.FC = () => {
           </VStack>
         </List>
         <Text>aaa</Text>
-      </HStack>
+      </HStack> */}
 
       {/* <SplitView primaryColumnWidth={320}>
         <NavigationView>

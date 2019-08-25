@@ -5,6 +5,8 @@ import { NavigationView } from "./NavigationView"
 import { NavigationBar } from "./NavigationBar"
 import { NavigationBarItem } from "./NavigationBarItem"
 import { NavigationBarTitle } from "./NavigationBarTitle"
+import { Form } from "./Form"
+import { TextField } from "./TextField"
 import { ScrollView } from "./ScrollView"
 import { SplitView } from "./SplitView"
 import { Spacer } from "./Spacer"
@@ -20,6 +22,8 @@ export { NavigationView }
 export { NavigationBar }
 export { NavigationBarItem }
 export { NavigationBarTitle }
+export { Form }
+export { TextField }
 export { ScrollView }
 export { SplitView }
 export { Spacer }
@@ -45,6 +49,11 @@ export enum HorizontalAlignment {
 export enum NavigationBarAlignment {
 	leading = "leading",
 	trailing = "trailing"
+}
+
+export enum TextFieldType {
+	text = "text",
+	password = "password"
 }
 
 export enum Axis {

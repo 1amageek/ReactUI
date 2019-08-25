@@ -198,6 +198,16 @@
 	box-sizing: border-box;	
 }
 
+.host-view ul.list li.list-cell > .list-cell-content-view {
+	display: flex;
+	width: 100%;
+	box-sizing: border-box;
+	align-content: center;
+	align-items: center;
+	border-bottom: 0.5px solid rgba(145, 145, 160, 0.6);
+	position: relative;
+}
+
 .host-view ul.list li.list-cell > a {
 	display: flex;
 	width: 100%;
@@ -248,4 +258,20 @@
 	flex-direction: column;
 	align-content: center;
 	align-self: center;
+}
+
+/* TextField */
+.host-view .text-field {
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	align-self: center;
+}
+
+.host-view .text-field input {
+	box-sizing: border-box;
+	outline: 0;
+	border: none;
+	font-size: 16px;
 }

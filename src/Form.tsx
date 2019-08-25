@@ -3,7 +3,7 @@ import { ScrollView } from "./ScrollView"
 import { Axis } from "."
 import { prepareLayout } from "./LayoutEngine"
 
-export const List = ({ children, style }: { children: any, style?: CSSProperties }) => {
+export const Form = ({ children, style }: { children: any, style?: CSSProperties }) => {
 
 	const ref = (element: HTMLElement | null) => {
 		if (element) {
@@ -34,11 +34,9 @@ export const List = ({ children, style }: { children: any, style?: CSSProperties
 				{React.Children.map(children, (child, index) => {
 					return (
 						<li className="list-cell row expandable horizontal" key={index}>
-							{/* <a className="row expandable horizontal"> */}
-								<div className="list-cell-content-view row expandable horizontal" style={{ paddingLeft: "16px", paddingRight: "16px", paddingTop: "4px", paddingBottom: "4px" }} ref={contetViewRef}>
-									{child}
-								</div>
-							{/* </a> */}
+							<div className="list-cell-content-view row expandable horizontal" style={{ paddingLeft: "16px", paddingRight: "16px", paddingTop: "4px", paddingBottom: "4px" }} ref={contetViewRef}>
+								{child}
+							</div>
 						</li>
 					)
 				})}
