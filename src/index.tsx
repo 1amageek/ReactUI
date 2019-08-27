@@ -15,6 +15,7 @@ import { HStack } from "./HStack"
 import { VStack } from "./VStack"
 import { List } from "./List"
 import { Button } from "./Button"
+import { Toggle } from "./Toggle"
 import { Indicator } from "./Indicator"
 
 export { HostView }
@@ -32,6 +33,7 @@ export { HStack }
 export { VStack }
 export { List }
 export { Button }
+export { Toggle }
 export { Indicator }
 
 export enum VerticalAlignment {

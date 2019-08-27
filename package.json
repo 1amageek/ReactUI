@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.2.2",
+  "version": "0.2.4",
   "scripts": {
     "lint": "./node_modules/.bin/tslint -p tslint.json",
     "build": "./node_modules/.bin/tsc -d && cp ./src/style.css ./lib/style.css",
@@ -36,32 +36,13 @@
   "types": "lib/index.d.ts",
   "dependencies": {},
   "devDependencies": {
-    "@types/node": "^12.7.1",
-    "@types/react": "^16.9.1",
-    "@types/react-dom": "^16.8.5",
-    "jest": "^24.8.0",
+    "@types/node": "^12.7.2",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
     "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
   },
-  "peerDependencies": {
-
-  },
-  "resolutions": {
-
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
-  }
+  "peerDependencies": {},
+  "resolutions": {}
 }
