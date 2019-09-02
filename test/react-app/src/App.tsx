@@ -18,10 +18,9 @@ const App: React.FC = () => {
 
       <HStack>
         <List>
+          <Text onClick={() => {console.log("aaa")}}>aaa</Text>
           <Text>aaa</Text>
           <Text>aaa</Text>
-          <Text>aaa</Text>
-          <Cell><Text>aaa</Text></Cell>
 
         </List>
       </HStack>

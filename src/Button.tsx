@@ -1,8 +1,8 @@
 import React, { CSSProperties } from "react"
 
-export const Button = ({ children, style, action }: { children: any, style?: CSSProperties, action: () => void }) => {
+export const Button = ({ children, style, onClick }: { children: any, style?: CSSProperties, onClick?: (event: any) => void }) => {
 	return (
-		<button className="button" style={style} onClick={action}>
+		<button className="button" style={style} onClick={onClick}>
 			{children}
 		</button>
 	)
