@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HostView, Spacer, Text, HStack, VStack, NavigationView, ScrollView, List, Button, Axis, NavigationBar, NavigationBarTitle, NavigationBarItem, NavigationBarAlignment, Form, TextField, TextFieldType, SplitView, Indicator, Toggle } from '@1amageek/react-ui'
+import { HostView, Spacer, Text, HStack, VStack, NavigationView, ScrollView, List, Cell, Button, Axis, NavigationBar, NavigationBarTitle, NavigationBarItem, NavigationBarAlignment, Form, TextField, TextFieldType, SplitView, Indicator, Toggle } from '@1amageek/react-ui'
 
 const App: React.FC = () => {
 
@@ -8,33 +8,23 @@ const App: React.FC = () => {
   return (
     <HostView style={{ margin: 0, padding: 0, height: "100%", width: "100%", position: "absolute" }}>
 
-      <Form>
+      {/* <Form>
         <TextField title="title" value="a" onEditingChanged={text => { console.log(text) }} />
         <HStack>
           <Text>ge</Text><Spacer /><Toggle value={value} onChanged={(e) => { setValue(!value) }} />
         </HStack>
 
-      </Form>
+      </Form> */}
 
-      {/* <HStack>
+      <HStack>
         <List>
-          <VStack>
-            <HStack>
-              <Text>aaa</Text>
-              <Spacer />
-              <Text>aaa</Text>
-              <Indicator />
-            </HStack>
-            <HStack>
-              <Text>aaa</Text>
-              <Spacer />
-              <Text>aaa</Text>
-              <Indicator />
-            </HStack>
-          </VStack>
+          <Text>aaa</Text>
+          <Text>aaa</Text>
+          <Text>aaa</Text>
+          <Cell><Text>aaa</Text></Cell>
+
         </List>
-        <Text>aaa</Text>
-      </HStack> */}
+      </HStack>
 
       {/* <SplitView primaryColumnWidth={320}>
         <NavigationView>

@@ -1,4 +1,4 @@
-// import "./style.css"
+import "./style.css"
 
 import { prepareLayout, layout } from "./LayoutEngine"
 import { HostView } from "./HostView"

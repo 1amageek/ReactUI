@@ -16,7 +16,9 @@ export const List = ({ children, style }: { children: any, style?: CSSProperties
 			<ul className="list column expandable horizontal vertical" ref={ref}>
 				{React.Children.map(children, (child, index) => {
 					return (
+						<>
 						{ child }
+						</>
 					)
 				})}
 			</ul>
@@ -24,7 +26,7 @@ export const List = ({ children, style }: { children: any, style?: CSSProperties
 	)
 }
 
-export const Cell = ({ children, style, key, action }: { children: any, style?: CSSProperties, key: string, action: () => void }) => {
+export const Cell = ({ children, style, key, onClick }: { children: any, style?: CSSProperties, key?: string, onClick?: () => void }) => {
 
 	const contetViewRef = (element: HTMLElement | null) => {
 		if (element) {
@@ -44,8 +46,8 @@ export const Cell = ({ children, style, key, action }: { children: any, style?: 
 	}
 
 	return (
-		<li className="list-cell row expandable horizontal" key={key}>
-			<a className="row expandable horizontal" onClick={action}>
+		<li className="list-cell row expandable horizontal" key={key} style={style}>
+			<a className="row expandable horizontal" onClick={onClick}>
 				<div className="list-cell-content-view row expandable horizontal" style={{ paddingLeft: "16px", paddingRight: "16px", paddingTop: "4px", paddingBottom: "4px" }} ref={contetViewRef}>
 					{children}
 				</div>
