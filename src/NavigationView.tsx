@@ -1,5 +1,5 @@
 import React, { CSSProperties } from "react"
-import { prepareLayout } from "./LayoutEngine"
+import { prepareLayout, layout } from "./LayoutEngine"
 
 export const NavigationView = ({ children, style }: { children: any, style?: CSSProperties }) => {
 
@@ -13,6 +13,7 @@ export const NavigationView = ({ children, style }: { children: any, style?: CSS
 				(item.className.includes("expandable") && item.className.includes("vertical")))
 			// elements.forEach(item => (item as HTMLElement).style.paddingTop = "96px")
 			prepareLayout(element)
+			layout(element)
 		}
 	}
 
