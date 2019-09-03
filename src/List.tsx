@@ -34,9 +34,9 @@ export const List = ({ children, style }: { children: any, style?: CSSProperties
 				{React.Children.map(children, (child, index) => {
 					return (
 						<li className="list-cell row expandable horizontal" key={`${index}`} style={style}>
-							<a className="row expandable horizontal" onClick={child.props.onClick}>
+							<a className="row expandable horizontal" onClick={child.props.onClick} href={child.props.href}>
 								<div className="list-cell-content-view row expandable horizontal" style={{ paddingLeft: "16px", paddingRight: "16px", paddingTop: "4px", paddingBottom: "4px" }} ref={contetViewRef}>
-									{child}
+									{child.type === "a" ? child.props.children : child}
 								</div>
 							</a>
 						</li>

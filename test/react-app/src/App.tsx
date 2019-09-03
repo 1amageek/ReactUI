@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HostView, Spacer, Text, HStack, VStack, NavigationView, ScrollView, List, Cell, Button, Axis, NavigationBar, NavigationBarTitle, NavigationBarItem, NavigationBarAlignment, Form, TextField, TextFieldType, SplitView, Indicator, Toggle } from '@1amageek/react-ui'
+import { HostView, Spacer, Text, HStack, VStack, NavigationView, ScrollView, List, Button, Axis, NavigationBar, NavigationBarTitle, NavigationBarItem, NavigationBarAlignment, Form, TextField, TextFieldType, SplitView, Indicator, Toggle } from '@1amageek/react-ui'
 
 const App: React.FC = () => {
 
@@ -18,6 +18,7 @@ const App: React.FC = () => {
 
       <HStack>
         <List>
+          <a href="http://sss"><Text>bbb</Text></a>
           <Text onClick={() => {console.log("aaa")}}>aaa</Text>
           <Text>aaa</Text>
           <Text>aaa</Text>

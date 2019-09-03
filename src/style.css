@@ -216,6 +216,7 @@
 	align-items: center;
 	border-bottom: 0.5px solid rgba(145, 145, 160, 0.6);
 	position: relative;
+	text-decoration: none;
 }
 
 .host-view ul.list li.list-cell > a:hover {
