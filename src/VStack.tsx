@@ -1,8 +1,8 @@
 import React, { CSSProperties } from "react"
-import { VerticalAlignment } from "."
+import { HorizontalAlignment } from "."
 import { prepareLayout } from "./LayoutEngine"
 
-export const VStack = ({ children, style, alignment = VerticalAlignment.center, onClick }: { children: any, style?: CSSProperties, alignment?: VerticalAlignment, onClick?: (event: any) => void }) => {
+export const VStack = ({ children, style, alignment = HorizontalAlignment.center, onClick }: { children: any, style?: CSSProperties, alignment?: HorizontalAlignment, onClick?: (event: any) => void }) => {
 
 	const ref = (element: HTMLElement | null) => {
 		if (element) {
