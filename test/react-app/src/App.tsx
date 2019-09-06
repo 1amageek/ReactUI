@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HostView, Spacer, Text, HStack, VStack, NavigationView, ScrollView, List, Button, Axis, NavigationBar, NavigationBarTitle, NavigationBarItem, NavigationBarAlignment, Form, TextField, TextFieldType, SplitView, Indicator, Toggle } from '@1amageek/react-ui'
+import { HostView, Spacer, Text, HStack, VStack, NavigationView, ScrollView, List, Button, Axis, NavigationBar, NavigationBarTitle, NavigationBarItem, NavigationBarAlignment, Form, TextField, TextFieldType, SplitView, Indicator, Toggle, VerticalAlignment, HorizontalAlignment } from '@1amageek/react-ui'
 
 const App: React.FC = () => {
 
@@ -16,14 +16,9 @@ const App: React.FC = () => {
 
       </Form> */}
 
-      <HStack>
-        <List>
-          <a href="http://sss"><Text>bbb</Text></a>
-          <Text onClick={() => {console.log("aaa")}}>aaa</Text>
-          <Text>aaa</Text>
-          <Text>aaa</Text>
-
-        </List>
+      <HStack alignment={VerticalAlignment.center} style={{background: "red", height: "100px"}}>
+        <Text>aaaaaaaaa</Text>
+        <Text>aaa</Text>
       </HStack>
 
       {/* <SplitView primaryColumnWidth={320}>
