@@ -40,11 +40,7 @@ export const List = ({ children, style }: { children: any, style?: CSSProperties
 	return (
 		<ScrollView axes={[Axis.horizontal, Axis.vertical]} style={style}>
 			<ul className="list column expandable horizontal vertical" ref={ref}>
-				{React.Children.map(children, (child, index) => {
-
-					let children = child
-					
-
+				{React.Children.toArray(children).filter(item => item).map((child, index) => {
 					return (
 						<li className="list-cell row expandable horizontal" key={`${index}`} style={style}>
 							<a className="row expandable horizontal" onClick={child.props.onClick} href={child.props.href}>

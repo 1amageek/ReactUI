@@ -5,6 +5,8 @@ const App: React.FC = () => {
 
   const [value, setValue] = useState(false)
 
+  let a: string | undefined
+
   return (
     <HostView style={{ margin: 0, padding: 0, height: "100%", width: "100%", position: "absolute" }}>
 
@@ -16,10 +18,10 @@ const App: React.FC = () => {
 
       </Form> */}
 
-      <HStack alignment={VerticalAlignment.center} style={{background: "red", height: "100px"}}>
-        <Text>aaaaaaaaa</Text>
-        <Text>aaa</Text>
-      </HStack>
+      <List>
+        <Text>a</Text>
+        {a && <Text>a</Text>}
+      </List>
 
       {/* <SplitView primaryColumnWidth={320}>
         <NavigationView>
