@@ -108,8 +108,8 @@
 .host-view .navigation-view .navigation-bar .navigation-bar-title .text {
 	justify-self: flex-start;
 	align-self: flex-start;
-	font-size: 32px;
-	font-weight: 900;
+	font-size: 30px;
+	font-weight: 700;
 }
 
 /* HStack */
