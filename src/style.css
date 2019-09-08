@@ -102,12 +102,12 @@
 
 .host-view .navigation-view .navigation-bar .navigation-bar-title {
 	justify-self: flex-start;
-	align-self: flex-end;
+	align-self: flex-start;
 }
 
 .host-view .navigation-view .navigation-bar .navigation-bar-title .text {
 	justify-self: flex-start;
-	align-self: flex-end;
+	align-self: flex-start;
 	font-size: 32px;
 	font-weight: 900;
 }

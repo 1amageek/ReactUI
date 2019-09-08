@@ -3,7 +3,7 @@ import { HostView, Spacer, Text, HStack, VStack, NavigationView, ScrollView, Lis
 
 const App: React.FC = () => {
 
-  const [value, setValue] = useState(false)
+  const [value, setValue] = useState<string>()
 
   let a: string | undefined
 
@@ -18,11 +18,18 @@ const App: React.FC = () => {
 
       </Form> */}
 
-      <Button onClick={() => {}}><Text>aaa</Text></Button>
+      {/* <NavigationView>
+        <NavigationBar>
+          <VStack>
+            <NavigationBarTitle>
+              <Text>aaaa</Text>
+            </NavigationBarTitle>
+            <TextField title="wwww" value={value} onEditingChanged={(text) => { setValue(text) }} />
+          </VStack>
+        </NavigationBar>
+      </NavigationView> */}
 
-      <Button onClick={() => {}}>bbbb</Button>
-
-      {/* <SplitView primaryColumnWidth={320}>
+      <SplitView primaryColumnWidth={320}>
         <NavigationView>
           <NavigationBar>
             <NavigationBarItem alignment={NavigationBarAlignment.trailing}>
@@ -70,8 +77,56 @@ const App: React.FC = () => {
             </VStack>
           </List>
         </NavigationView>
-        
-      </SplitView> */}
+        <SplitView primaryColumnWidth={320}>
+          <NavigationView>
+            <NavigationBar>
+              <VStack>
+                <NavigationBarTitle>
+                  <Text>aaaa</Text>
+                </NavigationBarTitle>
+                <TextField title="wwww" value={value} onEditingChanged={(text) => { setValue(text) }} />
+              </VStack>
+            </NavigationBar>
+            <List>
+              <VStack>
+                <HStack>
+                  <Text>aaa</Text>
+                  <Spacer />
+                  <Text>aaa</Text>
+                </HStack>
+                <HStack>
+                  <Text>aaa</Text>
+                  <Spacer />
+                  <Text>aaa</Text>
+                </HStack>
+                <HStack>
+                  <Text>aaa</Text>
+                  <Spacer />
+                  <Text>aaa</Text>
+                </HStack>
+              </VStack>
+              <VStack>
+                <HStack>
+                  <Text>aaa</Text>
+                  <Spacer />
+                  <Text>aaa</Text>
+                </HStack>
+                <HStack>
+                  <Text>aaa</Text>
+                  <Spacer />
+                  <Text>aaa</Text>
+                </HStack>
+                <HStack>
+                  <Text>aaa</Text>
+                  <Spacer />
+                  <Text>aaa</Text>
+                </HStack>
+              </VStack>
+            </List>
+          </NavigationView>
+
+        </SplitView>
+      </SplitView>
 
     </HostView>
   );

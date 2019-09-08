@@ -140,8 +140,8 @@ const getInstrinsicHeight = (element: HTMLElement): number => {
 }
 
 export const layout = (element: HTMLElement): void => {
-	// console.log("-------------------------------")
-	// console.log(element)
+	console.log("-------------------------------")
+	console.log(element)
 	const elements = Array.from(element.children).filter(item => item.nodeName !== "svg").map(item => (item as HTMLElement))
 	if (elements.length === 0) {
 		return
