@@ -18,10 +18,9 @@ const App: React.FC = () => {
 
       </Form> */}
 
-      <List>
-        <Text>a</Text>
-        {a && <Text>a</Text>}
-      </List>
+      <Button onClick={() => {}}><Text>aaa</Text></Button>
+
+      <Button onClick={() => {}}>bbbb</Button>
 
       {/* <SplitView primaryColumnWidth={320}>
         <NavigationView>
